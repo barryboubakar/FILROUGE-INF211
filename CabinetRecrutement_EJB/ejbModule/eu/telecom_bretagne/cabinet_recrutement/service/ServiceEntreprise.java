@@ -42,4 +42,16 @@ public class ServiceEntreprise implements IServiceEntreprise
     return entrepriseDAO.findAll();
   }
   //-----------------------------------------------------------------------------
+	@Override
+	public Entreprise persist(Entreprise entreprise) {
+		return entrepriseDAO.persist(entreprise);
+	}
+	@Override
+	public Entreprise update(Entreprise entreprise) {
+		return entrepriseDAO.update(entreprise);
+	}
+	@Override
+	public void remove(Entreprise entreprise) {
+		entrepriseDAO.remove(entreprise);
+	}
 }
