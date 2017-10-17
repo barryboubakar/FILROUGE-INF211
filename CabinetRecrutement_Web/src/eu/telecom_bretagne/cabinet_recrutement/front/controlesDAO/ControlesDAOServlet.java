@@ -171,6 +171,11 @@ public class ControlesDAOServlet extends HttpServlet
         secA = secteurDAO.update(secA);
         n = niveauDAO.update(n);
         
+        candidatureDAO.remove(c1);
+        n.removeCandidature(c1);
+        n = niveauDAO.update(n);
+        
+        
   }
   //-----------------------------------------------------------------------------
 }

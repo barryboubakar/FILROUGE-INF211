@@ -65,7 +65,7 @@
               <tbody>
                 <tr class="success">
                   <td width="200"><strong>Identifiant (login)</strong></td>
-                  <td>ENT_<%=entreprise.getId()%></td>
+                  <td>ENT_<%=entreprise.getIdEntreprise()%></td>
                 </tr>
                 <tr class="warning">
                   <td><strong>Nom</strong></td>
