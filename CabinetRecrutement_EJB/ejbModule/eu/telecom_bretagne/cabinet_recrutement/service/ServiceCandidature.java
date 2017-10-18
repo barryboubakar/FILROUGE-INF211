@@ -30,7 +30,7 @@ public class ServiceCandidature implements IServiceCandidature {
 		return candidatureDAO.findById(id) ;
 	}
 	@Override
-	public List<Candidature> findAll() {
+	public List<Candidature> listeDesCandidatures() {
 		
 		return  candidatureDAO.findAll();
 	}

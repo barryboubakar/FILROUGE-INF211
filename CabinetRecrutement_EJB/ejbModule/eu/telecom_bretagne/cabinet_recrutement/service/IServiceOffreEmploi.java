@@ -16,7 +16,7 @@ public interface IServiceOffreEmploi {
 
 	  public List<OffreEmploi> findBySecteurActiviteAndNiveauQualification(int idSecteurActivite, int idNiveauQualification);
 	  
-	  public List<OffreEmploi> findAll();
+	  public List<OffreEmploi> listeDesOffres();
 	  
 	  public OffreEmploi persist(OffreEmploi offreEmploi);
 	  

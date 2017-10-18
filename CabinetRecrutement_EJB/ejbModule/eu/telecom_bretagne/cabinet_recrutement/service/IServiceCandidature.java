@@ -12,7 +12,7 @@ public interface IServiceCandidature {
 	
 	  public Candidature findById(Integer id);
 	
-	  public List<Candidature> findAll();
+	  public List<Candidature> listeDesCandidatures();
 	
 	  public List<Candidature> findBySecteurActiviteAndNiveauQualification(int idSecteurActivite, int idNiveauQualification);
 	  

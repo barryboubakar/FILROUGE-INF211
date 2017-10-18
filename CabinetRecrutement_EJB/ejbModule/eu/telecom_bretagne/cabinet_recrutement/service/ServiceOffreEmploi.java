@@ -43,7 +43,7 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	}
 
 	@Override
-	public List<OffreEmploi> findAll() {
+	public List<OffreEmploi> listeDesOffres() {
 		return offreDAO.findAll();
 	}
 
