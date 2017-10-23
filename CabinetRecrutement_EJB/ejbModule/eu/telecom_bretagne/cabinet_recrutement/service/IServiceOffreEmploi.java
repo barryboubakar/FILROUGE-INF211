@@ -10,7 +10,7 @@ import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
 @Remote
 public interface IServiceOffreEmploi {
 
-	  public OffreEmploi findById(Integer id);
+	  public OffreEmploi getOffreEmploi(Integer id);
 
 	  public List<OffreEmploi> findByEntreprise(int idEntreprise);
 

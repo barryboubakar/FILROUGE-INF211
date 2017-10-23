@@ -28,7 +28,7 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
     }
 
 	@Override
-	public OffreEmploi findById(Integer id) {
+	public OffreEmploi getOffreEmploi(Integer id) {
 		return offreDAO.findById(id);
 	}
 
