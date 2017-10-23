@@ -25,7 +25,7 @@ public class ServiceCandidature implements IServiceCandidature {
         // TODO Auto-generated constructor stub
     }
 	@Override
-	public Candidature findById(Integer id) {
+	public Candidature getCandidature(Integer id) {
 		
 		return candidatureDAO.findById(id) ;
 	}

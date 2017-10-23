@@ -10,7 +10,7 @@ import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
 public interface IServiceCandidature {
 
 	
-	  public Candidature findById(Integer id);
+	  public Candidature getCandidature(Integer id);
 	
 	  public List<Candidature> listeDesCandidatures();
 	
