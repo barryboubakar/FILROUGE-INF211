@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.OffreEmploiDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
 
 
@@ -33,13 +34,13 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	}
 
 	@Override
-	public List<OffreEmploi> findByEntreprise(int idEntreprise) {
+	public List<OffreEmploi> listeDesOffresPourUneEntreprise(int idEntreprise) {
 		return offreDAO.findByEntreprise(idEntreprise);
 	}
 
 	@Override
-	public List<OffreEmploi> findBySecteurActiviteAndNiveauQualification(int idSecteurActivite, int idNiveauQualification) {
-		return offreDAO.findBySecteurActiviteAndNiveauQualification(idSecteurActivite, idNiveauQualification);
+	public List<OffreEmploi> listeDesOffresPourUneCandidature(int idCandidature) {
+		return offreDAO.findAll(); //a faire
 	}
 
 	@Override
@@ -48,17 +49,17 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	}
 
 	@Override
-	public OffreEmploi persist(OffreEmploi offreEmploi) {
+	public OffreEmploi newOffreEmploi(OffreEmploi offreEmploi) {
 		return offreDAO.persist(offreEmploi);
 	}
 
 	@Override
-	public OffreEmploi update(OffreEmploi offreEmploi) {
+	public OffreEmploi updateOffreEmploi(OffreEmploi offreEmploi) {
 		return offreDAO.update(offreEmploi);
 	}
 
 	@Override
-	public void remove(OffreEmploi offreEmploi) {
+	public void removeOffreEmploi(OffreEmploi offreEmploi) {
 		offreDAO.remove(offreEmploi);
 	}
 

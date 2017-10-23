@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
+import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
 
 @Remote
 public interface IServiceCandidature {
@@ -14,12 +15,12 @@ public interface IServiceCandidature {
 	
 	  public List<Candidature> listeDesCandidatures();
 	
-	  public List<Candidature> findBySecteurActiviteAndNiveauQualification(int idSecteurActivite, int idNiveauQualification);
+	  public List<Candidature> listeDesCandidaturesPourUneOffre(OffreEmploi offre);
 	  
-	  public Candidature persist(Candidature candidature);
+	  public Candidature newCandidature(Candidature candidature);
 	  
-	  public Candidature update(Candidature candidature);
+	  public Candidature updateCandidature(Candidature candidature);
 	  
-	  public void remove(Candidature candidature);	  
+	  public void removeCandidature(Candidature candidature);	  
 	  
 }

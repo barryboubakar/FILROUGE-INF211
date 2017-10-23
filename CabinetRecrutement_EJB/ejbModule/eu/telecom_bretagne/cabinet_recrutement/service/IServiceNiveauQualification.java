@@ -11,13 +11,13 @@ import eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification;
 public interface IServiceNiveauQualification {
 
 	
-	  public NiveauQualification findById(Integer id);
+	  public NiveauQualification getNiveauQualification(Integer id);
 	  
 	  //----------------------------------------------------------------------------
-	  public List<NiveauQualification> findAll();
+	  public List<NiveauQualification> listeDesNiveauxQualifications();
 	  
-	  public NiveauQualification persist(NiveauQualification niveau);
+	  public NiveauQualification newNiveauQualification(NiveauQualification niveau);
 	  
-	  public NiveauQualification update(NiveauQualification niveau);
+	  public NiveauQualification updateNiveauQualification(NiveauQualification niveau);
 	    
 }

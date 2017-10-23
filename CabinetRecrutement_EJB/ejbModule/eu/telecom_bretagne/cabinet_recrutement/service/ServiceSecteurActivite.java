@@ -27,22 +27,22 @@ public class ServiceSecteurActivite implements IServiceSecteurActivite {
     }
 
 	@Override
-	public SecteurActivite findById(Integer id) {
+	public SecteurActivite getSecteurActivite(Integer id) {
 		return secteurDAO.findById(id);
 	}
 
 	@Override
-	public List<SecteurActivite> findAll() {
+	public List<SecteurActivite> listeDesSecteursActivite() {
 		return secteurDAO.findAll();
 	}
 
 	@Override
-	public SecteurActivite persist(SecteurActivite secteur) {
+	public SecteurActivite newSecteurActivite(SecteurActivite secteur) {
 		return secteurDAO.persist(secteur);
 	}
 
 	@Override
-	public SecteurActivite update(SecteurActivite secteur) {
+	public SecteurActivite updateSecteurActivite(SecteurActivite secteur) {
 		return secteurDAO.update(secteur);
 	}
 

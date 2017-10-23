@@ -26,25 +26,25 @@ public class ServiceNiveauQualification implements IServiceNiveauQualification {
     }
 
 	@Override
-	public NiveauQualification findById(Integer id) {
+	public NiveauQualification getNiveauQualification(Integer id) {
 		
 		return niveauDAO.findById(id);
 	}
 
 	@Override
-	public List<NiveauQualification> findAll() {
+	public List<NiveauQualification> listeDesNiveauxQualifications() {
 		
 		return niveauDAO.findAll();
 	}
 
 	@Override
-	public NiveauQualification persist(NiveauQualification niveau) {
+	public NiveauQualification newNiveauQualification(NiveauQualification niveau) {
 		
 		return niveauDAO.persist(niveau);
 	}
 
 	@Override
-	public NiveauQualification update(NiveauQualification niveau) {
+	public NiveauQualification updateNiveauQualification(NiveauQualification niveau) {
 		
 		return niveauDAO.update(niveau);
 	}

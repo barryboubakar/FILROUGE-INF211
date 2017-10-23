@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.CandidatureDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
+import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
 
 /**
  * Session Bean implementation class ServiceCandidature
@@ -35,22 +36,27 @@ public class ServiceCandidature implements IServiceCandidature {
 		return  candidatureDAO.findAll();
 	}
 	@Override
-	public List<Candidature> findBySecteurActiviteAndNiveauQualification(int idSecteurActivite, int idNiveauQualification) {
+	public List<Candidature> listeDesCandidaturesPourUneOffre(OffreEmploi offre) {
 		
-		return candidatureDAO.findBySecteurActiviteAndNiveauQualification(idSecteurActivite, idNiveauQualification);
+		List candidaturesRETURN = null;
+		for(Candidature can : candidatureDAO.findAll()){
+			//if(can);
+		}
+		
+		return candidaturesRETURN;
 	}
 	@Override
-	public Candidature persist(Candidature candidature) {
+	public Candidature newCandidature(Candidature candidature) {
 		
 		return candidatureDAO.persist(candidature);
 	}
 	@Override
-	public Candidature update(Candidature candidature) {
+	public Candidature updateCandidature(Candidature candidature) {
 		
 		return candidatureDAO.update(candidature);
 	}
 	@Override
-	public void remove(Candidature candidature) {
+	public void removeCandidature(Candidature candidature) {
 		candidatureDAO.remove(candidature);
 		
 	}

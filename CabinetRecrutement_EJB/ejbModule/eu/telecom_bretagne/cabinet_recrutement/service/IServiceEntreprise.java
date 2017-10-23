@@ -28,11 +28,11 @@ public interface IServiceEntreprise
    */
   public List<Entreprise> listeDesEntreprises();
   
-  public Entreprise persist(Entreprise entreprise);
+  public Entreprise newEntreprise(Entreprise entreprise);
   
-  public Entreprise update(Entreprise entreprise);
+  public Entreprise updateEntreprise(Entreprise entreprise);
   
-  public void remove(Entreprise entreprise);
+  public void removeEntreprise(Entreprise entreprise);
   
   //-----------------------------------------------------------------------------
 }
