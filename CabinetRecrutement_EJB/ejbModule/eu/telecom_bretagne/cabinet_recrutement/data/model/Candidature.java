@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
+import static javax.persistence.FetchType.EAGER;
 
 
 /**
@@ -42,7 +43,7 @@ public class Candidature implements Serializable {
 	private String prenom;
 
 	//bi-directional many-to-many association to SecteurActivite
-	@ManyToMany(mappedBy="candidatures")
+	@ManyToMany(mappedBy="candidatures", fetch = EAGER)
 	private Set<SecteurActivite> secteurActivites;
 
 	//bi-directional many-to-one association to NiveauQualification

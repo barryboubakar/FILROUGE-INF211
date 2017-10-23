@@ -4,9 +4,11 @@
                 eu.telecom_bretagne.cabinet_recrutement.front.utils.Utils,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceOffreEmploi,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi,
-                eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite"%>
+                eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite,
+                java.text.SimpleDateFormat"%>
 
 <%
+  SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
   String erreur = null;
   String idStringValue = request.getParameter("id");
   int id = -1;
@@ -23,6 +25,7 @@
       id = new Integer(idStringValue);
       // C'est OK : on a bien un id
       IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");
+      
       offre = serviceOffreEmploi.getOffreEmploi(id);
       if(offre == null)
       {
@@ -39,7 +42,7 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-th"></i> Informations sur l'offre d'emploi</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="glyphicon glyphicon-transfer"></i> Informations sur l'offre d'emploi</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
         <%
         if(erreur != null) // Une erreur a été détectée et est affichée.
@@ -66,7 +69,7 @@
               <tbody>
                 <tr class="success">
                   <td width="200"><strong>Identifiant</strong></td>
-                  <td>ENT_<%=offre.getIdOffreEmploi()%></td>
+                  <td><%=offre.getIdOffreEmploi()%></td>
                 </tr>
                 <tr class="warning">
                   <td><strong>Titre</strong></td>
@@ -96,8 +99,10 @@
                   <td><strong>Secteur(s) d'activité</strong></td>
                   <td> <ul> <% for(SecteurActivite sa:  offre.getSecteurActivites()) { %> <li>  <%= sa.getIntitule() %> </li><%  }  %> </ul></td>
                 </tr>
-               
-      
+                <tr class="warning">
+                  <td><strong>Date de dépôt</strong></td>
+                  <td><%= dateFormat.format(offre.getDateDepot()) %></td>
+                </tr>
               </tbody>
             </table>
             </small>      
