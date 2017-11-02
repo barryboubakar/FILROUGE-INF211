@@ -37,16 +37,4 @@ public class ServiceNiveauQualification implements IServiceNiveauQualification {
 		return niveauDAO.findAll();
 	}
 
-	@Override
-	public NiveauQualification newNiveauQualification(NiveauQualification niveau) {
-		
-		return niveauDAO.persist(niveau);
-	}
-
-	@Override
-	public NiveauQualification updateNiveauQualification(NiveauQualification niveau) {
-		
-		return niveauDAO.update(niveau);
-	}
-
 }

@@ -13,7 +13,4 @@ public interface IServiceSecteurActivite {
 
 	public List<SecteurActivite> listeDesSecteursActivite();
 	  
-	public SecteurActivite newSecteurActivite(SecteurActivite secteur);
-	  
-	public SecteurActivite updateSecteurActivite(SecteurActivite secteur);
 }

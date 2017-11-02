@@ -65,8 +65,39 @@
 			      entreprise.setAdressePostale(adresse_postale);
 			      entreprise.setNom(nom);
 			      entreprise.setDescriptif(descriptif);
+			      serviceEntreprise.newEntreprise(entreprise);
+			
+			      %>
+			      <div class="panel panel-success">
+		                  <div class="panel-heading">
+		                    Nouvelle entreprise référencée
+		                  </div>
+		                  <div class="panel-body">
+		                    <small>
+		                      <table class="table">
+		                        <tbody>
+		                          <tr class="success">
+		                            <td><strong>Identifiant (login)</strong></td>
+		                            <td>ENT_<%=entreprise.getIdEntreprise() %></td>
+		                          </tr>
+		                          <tr class="warning">
+		                            <td><strong>Nom</strong></td>
+		                            <td><%= entreprise.getNom() %></td>
+		                          </tr>
+		                          <tr class="warning">
+		                            <td><strong>Adresse postale (ville)</strong></td>
+		                            <td><%= entreprise.getAdressePostale() %></td>
+		                          </tr>
+		                          <tr class="warning">
+		                            <td><strong>Descriptif</strong></td>
+		                            <td><%= entreprise.getDescriptif() %></td>
+		                          </tr>
+		                        </tbody>
+		                      </table>
+		                    </small>
+		                  </div>
+                  </div><%
 			      
-			      serviceEntreprise.persist(entreprise);
 			}
 		}
 		catch(NumberFormatException e)
@@ -74,6 +105,7 @@
 	      String erreur = "La valeur de l'identifiant n'est pas numérique";
 	    }
 	}
+	  
 %>
      
            </div>

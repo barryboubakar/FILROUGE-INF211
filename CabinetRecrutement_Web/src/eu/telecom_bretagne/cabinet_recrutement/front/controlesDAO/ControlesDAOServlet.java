@@ -167,13 +167,13 @@ public class ControlesDAOServlet extends HttpServlet
         secA = secteurDAO.findById(1);
         secA.getCandidatures().add(c1);
         
-        c1 = candidatureDAO.persist(c1);   
-        secA = secteurDAO.update(secA);
-        n = niveauDAO.update(n);
-        
-        candidatureDAO.remove(c1);
-        n.removeCandidature(c1);
-        n = niveauDAO.update(n);
+//        c1 = candidatureDAO.persist(c1);   
+//        secA = secteurDAO.update(secA);
+//        n = niveauDAO.update(n);
+//        
+//        candidatureDAO.remove(c1);
+//        n.removeCandidature(c1);
+//        n = niveauDAO.update(n);
         
         
   }

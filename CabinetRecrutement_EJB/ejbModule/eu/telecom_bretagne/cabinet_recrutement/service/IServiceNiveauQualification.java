@@ -15,9 +15,5 @@ public interface IServiceNiveauQualification {
 	  
 	  //----------------------------------------------------------------------------
 	  public List<NiveauQualification> listeDesNiveauxQualifications();
-	  
-	  public NiveauQualification newNiveauQualification(NiveauQualification niveau);
-	  
-	  public NiveauQualification updateNiveauQualification(NiveauQualification niveau);
 	    
 }

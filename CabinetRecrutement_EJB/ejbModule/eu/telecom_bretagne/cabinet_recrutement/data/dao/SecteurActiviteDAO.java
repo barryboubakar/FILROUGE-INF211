@@ -48,16 +48,5 @@ public class SecteurActiviteDAO
     return l;
   }
   
-  
-  public SecteurActivite persist(SecteurActivite secteur){
-	  entityManager.persist(secteur);
-	  return entityManager.find(SecteurActivite.class, secteur);
-  }  
-  
-  public SecteurActivite update(SecteurActivite secteur){
-	  return entityManager.merge(secteur);
-  }
-
-  
   //-----------------------------------------------------------------------------
 }

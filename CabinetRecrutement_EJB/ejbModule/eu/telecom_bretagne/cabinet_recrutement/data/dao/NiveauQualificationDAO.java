@@ -47,15 +47,6 @@ public class NiveauQualificationDAO
     List<NiveauQualification> l = query.getResultList();
     return l;
   }
-  
-  public NiveauQualification persist(NiveauQualification niveau){
-	  entityManager.persist(niveau);
-	  return entityManager.find(NiveauQualification.class, niveau);
-  }  
-  
-  public NiveauQualification update(NiveauQualification niveau){
-	  return entityManager.merge(niveau);
-  }
     
   
   //-----------------------------------------------------------------------------
