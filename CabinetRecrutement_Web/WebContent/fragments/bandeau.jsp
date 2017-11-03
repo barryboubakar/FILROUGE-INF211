@@ -15,6 +15,31 @@
     <span class="icon-bar"></span>
   </button>
   <h4><a class="navbar-brand" href="template.jsp">Cabinet de recrutement</a></h4><br/>
+  <h4 class="navbar-brand"> <%
+	  if(utilisateur == null)
+	  {
+	    %>
+	   
+	    <%
+	  }
+	  else
+	  {
+	  	if(utilisateur instanceof Entreprise)
+	  	{
+	  		Entreprise e = (Entreprise) utilisateur;
+        %>
+	  		<i class="fa fa-th fa-fw"></i>Entreprise : <i><%=e.getNom()%></i>&nbsp;<em>(entreprise)</em>
+        <%
+	  	}
+	  	else if(utilisateur instanceof Candidature)
+	  	{
+	  		Candidature c = (Candidature) utilisateur;
+	      %>
+	      <small><i class="fa fa-user fa-fw"></i>Candidature : <i><%=c.getNom()%> <%=c.getPrenom()%></i>&nbsp;<em>(candidature)</em></small>
+	      <%
+	  	}
+	  }
+	%></h4>
 </div> <!-- /.navbar-header -->
 
 <ul class="nav navbar-top-links navbar-right">
@@ -32,32 +57,3 @@
     </ul> <!-- /.dropdown-user -->
   </li> <!-- /.dropdown -->
 </ul>
-
-
-<h1>
-	<%
-	  if(utilisateur == null)
-	  {
-	    %>
-	    Non connecté
-	    <%
-	  }
-	  else
-	  {
-	  	if(utilisateur instanceof Entreprise)
-	  	{
-	  		Entreprise e = (Entreprise) utilisateur;
-        %>
-	  		Entreprise : <i><%=e.getNom()%></i>
-        <%
-	  	}
-	  	else if(utilisateur instanceof Candidature)
-	  	{
-	  		Candidature c = (Candidature) utilisateur;
-	      %>
-	      Candidature : <i><%=c.getNom()%> <%=c.getPrenom()%></i>
-	      <%
-	  	}
-	  }
-	%>
-</h1>
