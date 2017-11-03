@@ -65,7 +65,7 @@
 			      entreprise.setAdressePostale(adresse_postale);
 			      entreprise.setNom(nom);
 			      entreprise.setDescriptif(descriptif);
-			      serviceEntreprise.newEntreprise(entreprise);
+			      entreprise = serviceEntreprise.newEntreprise(entreprise);
 			
 			      %>
 			      <div class="panel panel-success">

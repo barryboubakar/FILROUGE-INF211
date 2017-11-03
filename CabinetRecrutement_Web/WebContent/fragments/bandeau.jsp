@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-<%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
-                eu.telecom_bretagne.cabinet_recrutement.service.IServiceEntreprise,
-                eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise"%>
+<%@page import="eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature"%>
 
 <%
   Object utilisateur = session.getAttribute("utilisateur");
@@ -17,3 +16,48 @@
   </button>
   <h4><a class="navbar-brand" href="template.jsp">Cabinet de recrutement</a></h4><br/>
 </div> <!-- /.navbar-header -->
+
+<ul class="nav navbar-top-links navbar-right">
+  <!-- Menu des messages -->
+  <!-- Menu connexion -->
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <i class="fa fa-user fa-2x"></i>
+      <i class="fa fa-caret-down fa-2x"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-user">
+        <li><a href="#"><i class="fa fa-user fa-fw"></i> Aucun utilisateur connecté</a></li>
+        <li class="divider"></li>
+        <li><a href="?action=connexion"><i class="fa fa-sign-in fa-fw"></i> Login</a></li>      
+    </ul> <!-- /.dropdown-user -->
+  </li> <!-- /.dropdown -->
+</ul>
+
+
+<h1>
+	<%
+	  if(utilisateur == null)
+	  {
+	    %>
+	    Non connecté
+	    <%
+	  }
+	  else
+	  {
+	  	if(utilisateur instanceof Entreprise)
+	  	{
+	  		Entreprise e = (Entreprise) utilisateur;
+        %>
+	  		Entreprise : <i><%=e.getNom()%></i>
+        <%
+	  	}
+	  	else if(utilisateur instanceof Candidature)
+	  	{
+	  		Candidature c = (Candidature) utilisateur;
+	      %>
+	      Candidature : <i><%=c.getNom()%> <%=c.getPrenom()%></i>
+	      <%
+	  	}
+	  }
+	%>
+</h1>
