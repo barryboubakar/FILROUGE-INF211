@@ -9,7 +9,6 @@ import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
 
 @Remote
 public interface IServiceCandidature {
-
 	
 	  public Candidature getCandidature(Integer id);
 	
