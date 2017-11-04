@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html" pageEncoding="ISO-8859-1"%>
 
 <%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
-                eu.telecom_bretagne.cabinet_recrutement.front.utils.Utils"%>
+                eu.telecom_bretagne.cabinet_recrutement.service.IServiceEntreprise,
+                eu.telecom_bretagne.cabinet_recrutement.service.IServiceCandidature,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature"%>
                 
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading"><h3><i class="fa fa-sign-in"></i> Connexion</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
-                    <div class="row col-xs-offset-2 col-xs-8">
+       <div class="row col-xs-offset-2 col-xs-8">
  
 <!---------------------------------------------------- DEBUT DE NOTRE APPLICATION  ----------------------------------->
 <%
@@ -38,11 +41,64 @@
 <%
 	}
 	else {
-	   		session.getSessionContext();
-		 }
-	  
+			if(identifiant.equals(""))
+		  	{
 %>
-     
+		      <div class="row col-xs-offset-1 col-xs-10">
+                        <div class="panel panel-red">
+                          <div class="panel-heading ">
+                            Impossible de se connecter
+                          </div>
+                          <div class="panel-body text-center">
+                            <p class="text-danger"><strong>Veuillez renseignez un identifiant pour pouvoir vous connecter</strong></p>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    onclick="window.location.href='connexion.jsp'">
+                              Retour...
+                            </button>
+                          </div>
+                        </div>
+                      </div> <!-- /.row col-xs-offset-1 col-xs-10 -->
+<%
+		  	}
+			else if(identifiant.startsWith("ENT_"))
+		  	{
+		  		IServiceEntreprise serviceEntreprise = (IServiceEntreprise) ServicesLocator.getInstance().getRemoteInterface("ServiceEntreprise");
+		  		int id = Integer.parseInt(identifiant.substring(4)); // On enlève le préfixe "ENT_";
+		  		Entreprise entreprise = serviceEntreprise.getEntreprise(id);
+		  		if(entreprise == null)
+		  			{
+%>
+		  				<p class="erreur">Erreur : il n'y a pas d'entreprise avec cet identifiant : <%=identifiant%></p>
+		  				<a href="index.jsp">Retour...</a>
+<%
+		  			}
+		  		else
+		  			{
+		       	 		session.setAttribute("utilisateur",entreprise);
+		       	 		response.sendRedirect("index.jsp");
+		  			}
+		  	}
+		  	else if(identifiant.startsWith("CAND_"))
+		  	{
+		  		IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
+		  		int id = Integer.parseInt(identifiant.substring(5)); // On enlève le préfixe "CAND_";
+		  		Candidature candidature = serviceCandidature.getCandidature(id);
+		      if(candidature == null)
+		      	{
+%>
+		        	<p class="erreur">Erreur : il n'y a pas de candidature avec cet identifiant : <%=identifiant%></p>
+		        	<a href="index.jsp">Retour...</a>
+<%
+		      	}
+		      else
+		      	{
+		        	session.setAttribute("utilisateur",candidature);
+		        	response.sendRedirect("index.jsp");
+		      	}
+		  	}
+		  }
+%>     
             </div>
            </div> <!-- /.panel-body -->
          </div> <!-- /.panel-default -->
