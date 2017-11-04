@@ -2,7 +2,12 @@
 
 <%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceEntreprise,
-                eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise"%>
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature"%>
+
+<%
+  Object utilisateur = session.getAttribute("utilisateur");
+%>
 
 <div class="navbar-default sidebar" role="navigation">
   <div class="sidebar-nav navbar-collapse">
@@ -35,9 +40,39 @@
       -->
 
       <li><h4>&nbsp;</h4></li>
-      <li><a href="http://formations.telecom-bretagne.eu/fip_inf210_fil_rouge/" target="_blank"><i class="fa fa-question-circle"></i> Documentation du fil rouge</a></li>
-      <li><a href="http://srv-labs-006.enst-bretagne.fr/CabinetRecrutement_Web/" target="_blank"><i class="fa fa-certificate"></i> Démonstration du prototype</a></li>
-      <li><a href="bootstrap/pages/" target="_blank"><i class="fa fa-thumbs-up"></i> Démo du template SB Admin 2</a></li>
+<%      if(utilisateur instanceof Entreprise)
+	  	{
+			Entreprise e = (Entreprise) utilisateur;
+%>  		
+      <li><a href="#"><i class="fa fa-th"></i> Menu <strong>ENTREPRISE</strong><span class="fa arrow"></span></a>
+      <ul class="nav nav-second-level">
+              <li><a href="template.jsp?action=maj_entreprise&id_entreprise=<%= e.getIdEntreprise() %>">Mettre à jour les informations de l'entreprise</a></li>
+              <li><a href="template.jsp?action=nouvelle_offre">Nouvelle offre d'emploi</a></li>
+              <li>
+                <a href="template.jsp?action=entreprise_liste_offres&id_entreprise=<%= e.getIdEntreprise() %>">Liste de mes offres d'emploi (<%= e.getOffreEmplois().size()%>)</a>
+              </li>
+            </ul> <!-- /.nav-second-level -->
+      </li>
+      
+<%	
+		} 	
+		else if(utilisateur instanceof Candidature)
+	  	{
+	  		Candidature c = (Candidature) utilisateur;
+%>
+			<li>
+            <a href="#"><i class="fa fa-user"></i> Menu <strong>CANDIDATURE</strong><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li><a href="template.jsp?action=maj_candidature&id_candidature=<%= c.getIdCandidature()%> ">Mettre à jour les informations de la candidature</a></li>
+              <li>
+                <a href="template.jsp?action=candidature_liste_offres&id_candidature=<%= c.getIdCandidature()%> "> Liste des offres d'emploi potentielles (to_do)
+                </a>
+              </li>
+            </ul> <!-- /.nav-second-level -->
+          </li>	  
+<%	  	
+	  	}
+%>
     </ul>
   </div> <!-- /.sidebar-collapse -->
 </div> <!-- /.navbar-static-side -->

@@ -6,19 +6,20 @@
                 eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature"%>
                 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-sign-in"></i> Connexion</h3></div> <!-- /.panel-heading -->
-      <div class="panel-body">
-       <div class="row col-xs-offset-2 col-xs-8">
+
  
 <!---------------------------------------------------- DEBUT DE NOTRE APPLICATION  ----------------------------------->
 <%
 	  String identifiant = request.getParameter("identifiant");
 	  if(identifiant == null) {
 %>
-              <!-- Formulaire -->
+              <div class="row">
+			  <div class="col-lg-12">
+			    <div class="panel panel-default">
+			      <div class="panel-heading"><h3><i class="fa fa-sign-in"></i> Connexion</h3></div> <!-- /.panel-heading -->
+			      <div class="panel-body">
+                    <div class="row col-xs-offset-2 col-xs-8">
+            		  <!-- Formulaire -->
                       <form role="form" action="connexion.jsp" method="get">
                         <fieldset>
                           <div class="form-group">
@@ -37,29 +38,18 @@
                          </ul>
                          <br/>
                          <em>Note : l'identification se fait sans mot de passe.</em>
-                       </div>                       
+                       </div>          
+                    </div>
+			           </div> <!-- /.panel-body -->
+			         </div> <!-- /.panel-default -->
+			       </div> <!-- /.col-lg-12 -->
+			     </div> <!-- /.row -->                 
 <%
 	}
 	else {
 			if(identifiant.equals(""))
 		  	{
-%>
-		      <div class="row col-xs-offset-1 col-xs-10">
-                        <div class="panel panel-red">
-                          <div class="panel-heading ">
-                            Impossible de se connecter
-                          </div>
-                          <div class="panel-body text-center">
-                            <p class="text-danger"><strong>Veuillez renseignez un identifiant pour pouvoir vous connecter</strong></p>
-                            <button type="button"
-                                    class="btn btn-danger"
-                                    onclick="window.location.href='connexion.jsp'">
-                              Retour...
-                            </button>
-                          </div>
-                        </div>
-                      </div> <!-- /.row col-xs-offset-1 col-xs-10 -->
-<%
+				response.sendRedirect("template.jsp?action=no_id_connexion");
 		  	}
 			else if(identifiant.startsWith("ENT_"))
 		  	{
@@ -68,10 +58,7 @@
 		  		Entreprise entreprise = serviceEntreprise.getEntreprise(id);
 		  		if(entreprise == null)
 		  			{
-%>
-		  				<p class="erreur">Erreur : il n'y a pas d'entreprise avec cet identifiant : <%=identifiant%></p>
-		  				<a href="index.jsp">Retour...</a>
-<%
+		  				response.sendRedirect("template.jsp?action=wrong_entreprise_id&identifiant="+ identifiant);
 		  			}
 		  		else
 		  			{
@@ -86,10 +73,7 @@
 		  		Candidature candidature = serviceCandidature.getCandidature(id);
 		      if(candidature == null)
 		      	{
-%>
-		        	<p class="erreur">Erreur : il n'y a pas de candidature avec cet identifiant : <%=identifiant%></p>
-		        	<a href="index.jsp">Retour...</a>
-<%
+		    	  response.sendRedirect("template.jsp?action=wrong_candidature_id&identifiant="+ identifiant);
 		      	}
 		      else
 		      	{
@@ -99,10 +83,6 @@
 		  	}
 		  }
 %>     
-            </div>
-           </div> <!-- /.panel-body -->
-         </div> <!-- /.panel-default -->
-       </div> <!-- /.col-lg-12 -->
-     </div> <!-- /.row -->    
+            
 
 <!---------------------------------------------------- FIN DE NOTRE APPLICATION  ----------------------------------->
