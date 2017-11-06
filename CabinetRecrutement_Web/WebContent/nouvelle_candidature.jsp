@@ -11,7 +11,7 @@
                 eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceSecteurActivite,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite,
-                java.util.*,java.sql.Date"%>
+                java.util.*"%>
 
 
   
@@ -103,10 +103,7 @@
               }
 	else {
 		try {
-			IServiceSecteurActivite serviceSectAct = (IServiceSecteurActivite) ServicesLocator.getInstance().getRemoteInterface("ServiceSecteurActivite");
-		    IServiceNiveauQualification serviceNiveau = (IServiceNiveauQualification) ServicesLocator.getInstance().getRemoteInterface("ServiceNiveauQualification");
-		      
-		      
+ 
 	    // Variable a traiter
 	    	String traitement_nom = request.getParameter("nom");
 	    	String traitement_prenom = request.getParameter("prenom");
@@ -125,17 +122,15 @@
 	    	String adresse_postale = null;
 	    	String adresse_email = null;
 	    	String cv = null;
-	    	NiveauQualification niveau = null;
-	    	SecteurActivite secteur[] = null;
+	    	int niveau = 0;
+	    	int secteurs[] = null;
 	    	
 	    // Traitement des variables
 			if(traitement_nom != null || !traitement_nom.equals(""))
 				nom = traitement_nom;
  
 			if(traitement_date_naissance != null || !traitement_date_naissance.equals("")){
-				SimpleDateFormat format_date = new SimpleDateFormat("dd/MM/yyyy");
-				java.util.Date date = format_date.parse(traitement_date_naissance);
-				date_naissance.setTime(date.getTime());
+				date_naissance = Utils.string2Date(traitement_date_naissance);
 			}
 			
 			if(traitement_adresse_postale != null || !traitement_adresse_postale.equals(""))
@@ -148,52 +143,18 @@
 				cv = traitement_cv;
 			
 			if(traitement_niveau != null || !traitement_niveau.equals("")){
-				niveau = serviceNiveau.getNiveauQualification(Integer.parseInt(traitement_niveau));
+				niveau = Integer.parseInt(traitement_niveau);
 			}
 				
 			
 			if(traitement_secteur != null || !traitement_secteur[0].equals("")){
 				for(int i=0;i<traitement_secteur.length;i++){
-					secteur[i] = serviceSectAct.getSecteurActivite(Integer.parseInt(traitement_secteur[i]));
+					secteurs[i] = Integer.parseInt(traitement_secteur[i]);
 				}	
 			}
-					
-
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-
-			
-			  IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
-		      
-		      Candidature candidature = new Candidature();
-		      
-		      candidature.setNom(nom);
-		      candidature.setDateNaissance(date_naissance);
-		      candidature.setAdressePostale(adresse_postale);
-		      candidature.setAdresseEmail(adresse_email);
-		      candidature.setCv(cv);
-		      
-		      // Ajout dans niveau de qualification
-		      NiveauQualification n;
-		      n = niveau;
-		      candidature.setNiveauQualification(n);
-		      n.addCandidature(candidature);
-		
-		      // Ajout dans secteur activite
-		      SecteurActivite s;
-		      for (int i=0;i<secteur.length;i++){
-		    	  s = secteur[i];
-			      s.getCandidatures().add(candidature);
-		      }
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-			// Mettre toute la partie traitement dans le service et non dans l'ihm !!!
-
-		      
-		      serviceCandidature.newCandidature(candidature);		      
+						
+			  IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");      
+		      serviceCandidature.newCandidature(nom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);		      
 			
 		}
 		catch(NumberFormatException e)
