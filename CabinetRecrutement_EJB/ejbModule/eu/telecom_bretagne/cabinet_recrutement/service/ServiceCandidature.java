@@ -8,6 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.CandidatureDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.dao.SecteurActiviteDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
@@ -75,14 +76,19 @@ public class ServiceCandidature implements IServiceCandidature {
 	      
 	      for(int j=0;j<secteurActivite.length;j++){
 	    	  tabS[j] = secteur.getSecteurActivite(secteurActivite[j]);
+	    	  candidature.getSecteurActivites().add(tabS[j]);
 	      }
+	            
 	      
 	      for (int i=0;i<tabS.length;i++){
 	    	  s = tabS[i];
 		      s.getCandidatures().add(candidature);
 	      }
 	      
-		return candidatureDAO.persist(candidature);
+	      SecteurActiviteDAO secDAO = new SecteurActiviteDAO();
+	      secDAO.update(tabS);
+	      
+	      return candidatureDAO.persist(candidature);
 		
 	}
 	@Override
