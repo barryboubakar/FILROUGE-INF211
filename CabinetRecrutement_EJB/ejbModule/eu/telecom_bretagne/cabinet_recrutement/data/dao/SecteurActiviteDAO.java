@@ -42,10 +42,19 @@ public class SecteurActiviteDAO
   //----------------------------------------------------------------------------
   public List<SecteurActivite> findAll()
   {
-    Query query = entityManager.createQuery("select secteurActivite from SecteurActivite secteurActivite " +
-                                            "order by secteurActivite.idSecteurActivite");
-    List<SecteurActivite> l = query.getResultList();
-    return l;
+	  Query query = entityManager.createQuery("select secteurActivite from SecteurActivite secteurActivite " +
+			  "order by secteurActivite.idSecteurActivite");
+	  List<SecteurActivite> l = query.getResultList();
+	  return l;
+  }
+
+  public SecteurActivite persist(SecteurActivite secteur){
+	  entityManager.persist(secteur);
+	  return entityManager.find(SecteurActivite.class, secteur);
+  }
+
+  public SecteurActivite update(SecteurActivite secteur){
+	  return entityManager.merge(secteur);
   }
   
   //-----------------------------------------------------------------------------

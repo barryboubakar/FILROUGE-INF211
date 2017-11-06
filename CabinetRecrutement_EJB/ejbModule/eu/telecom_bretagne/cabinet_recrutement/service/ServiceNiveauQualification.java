@@ -33,8 +33,17 @@ public class ServiceNiveauQualification implements IServiceNiveauQualification {
 
 	@Override
 	public List<NiveauQualification> listeDesNiveauxQualifications() {
-		
 		return niveauDAO.findAll();
+	}
+	
+	@Override
+	public NiveauQualification newNiveauQualification(NiveauQualification niveau) {
+		 return niveauDAO.persist(niveau);
+	}
+	
+	@Override
+	public NiveauQualification updateNiveauQualification(NiveauQualification niveau) {
+		return niveauDAO.update(niveau);
 	}
 
 }

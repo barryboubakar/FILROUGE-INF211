@@ -153,7 +153,6 @@ public class ControlesDAOServlet extends HttpServlet
             out.println(c.getSecteurActivites());
         }
         
-        
         Candidature c1 = new Candidature();
         c1.setNom("Abou");
         c1.setPrenom("Bacar");

@@ -35,5 +35,15 @@ public class ServiceSecteurActivite implements IServiceSecteurActivite {
 	public List<SecteurActivite> listeDesSecteursActivite() {
 		return secteurDAO.findAll();
 	}
+	
+	@Override
+	public SecteurActivite newSecteurActivite(SecteurActivite secteur) {
+		return secteurDAO.persist(secteur);
+	}
+	
+	@Override
+	public SecteurActivite updateSecteurActivite(SecteurActivite secteur) {
+		return secteurDAO.update(secteur);
+	}
 
 }

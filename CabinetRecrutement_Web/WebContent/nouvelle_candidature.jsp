@@ -104,6 +104,8 @@
 	else {
 		try {
  
+			Candidature candidature;
+			
 	    // Variable a traiter
 	    	String traitement_nom = request.getParameter("nom");
 	    	String traitement_prenom = request.getParameter("prenom");
@@ -122,12 +124,15 @@
 	    	String adresse_postale = null;
 	    	String adresse_email = null;
 	    	String cv = null;
-	    	int niveau = 0;
-	    	int secteurs[] = null;
+	    	Integer niveau = null;
+	    	ArrayList<Integer> secteurs = new ArrayList<Integer>();
 	    	
 	    // Traitement des variables
 			if(traitement_nom != null || !traitement_nom.equals(""))
 				nom = traitement_nom;
+	    
+			if(traitement_prenom != null || !traitement_prenom.equals(""))
+				prenom = traitement_prenom;
  
 			if(traitement_date_naissance != null || !traitement_date_naissance.equals("")){
 				date_naissance = Utils.string2Date(traitement_date_naissance);
@@ -146,16 +151,83 @@
 				niveau = Integer.parseInt(traitement_niveau);
 			}
 				
-			
 			if(traitement_secteur != null || !traitement_secteur[0].equals("")){
 				for(int i=0;i<traitement_secteur.length;i++){
-					secteurs[i] = Integer.parseInt(traitement_secteur[i]);
+					secteurs.add(Integer.parseInt(traitement_secteur[i]));
 				}	
 			}
-						
-			  IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");      
-		      serviceCandidature.newCandidature(nom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);		      
 			
+			 IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");  
+		     candidature = serviceCandidature.newCandidature(nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);		
+		
+		%>
+		<div class="panel-body">
+        
+              <div class="col-lg-offset-2 col-lg-8
+                          col-xs-12">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    Nouvelle candidature référencée
+                  </div>
+                  <div class="panel-body">
+
+                   <small>
+                     <table class="table">
+                       <tbody>
+                         <tr class="success">
+                           <td><strong>Identifiant (login)</strong></td>
+                           <td><%=candidature.getIdCandidature() %></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Nom</strong></td>
+                           <td><%=candidature.getNom()%></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Prénom</strong></td>
+                           <td><%=candidature.getPrenom()%></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Date de naissance</strong></td>
+                           <td><%=Utils.date2String(candidature.getDateNaissance())%></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Adresse postale (ville)</strong></td>
+                           <td><%=candidature.getAdressePostale()%></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Adresse email</strong></td>
+                           <td><a href="mailto:<%=candidature.getAdresseEmail()%>"><%=candidature.getAdresseEmail()%></a></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Curriculum vitæ</strong></td>
+                           <td><%=candidature.getCv()%></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Niveau de qualification</strong></td>
+                           <td><%=candidature.getNiveauQualification().getIntitule()%></td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Secteur(s) d'activité</strong></td>
+                           <td>
+                             <ul><% for (SecteurActivite sect : candidature.getSecteurActivites()){ %>               
+                                 <li><%=sect.getIntitule() %></li>
+                                 <%  } %>
+                             </ul>
+                           </td>
+                         </tr>
+                         <tr class="warning">
+                           <td><strong>Date de dépôt</strong></td>
+                           <td><%=Utils.date2String(candidature.getDateDepot()) %></td>
+                         </tr>
+                       </tbody>
+                     </table>
+                   </small>
+                  </div>
+                </div>
+              </div>
+              
+      </div>
+		<%
 		}
 		catch(NumberFormatException e)
 	    {

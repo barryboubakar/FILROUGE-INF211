@@ -1,5 +1,6 @@
 package eu.telecom_bretagne.cabinet_recrutement.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface IServiceCandidature {
 	
 	  public List<Candidature> listeDesCandidaturesPourUneOffre(OffreEmploi offre);
 	  
-	  public Candidature newCandidature(String nom, Date date_naissance,String adresse_postale,String adresse_email,String cv,int niveauQualification,int[] SecteurActivite);
+	  public Candidature newCandidature(String nom, String prenom, Date date_naissance,String adresse_postale,String adresse_email,String cv,Integer niveauQualification,ArrayList<Integer> SecteurActivite);
 	  
 	  public Candidature updateCandidature(Candidature candidature);
 	  

@@ -1,20 +1,24 @@
 package eu.telecom_bretagne.cabinet_recrutement.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.CandidatureDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.dao.NiveauQualificationDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.SecteurActiviteDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite;
-import eu.telecom_bretagne.cabinet_recrutement.service.ServiceSecteurActivite;
-import eu.telecom_bretagne.cabinet_recrutement.service.ServiceNiveauQualification;
+
 
 /**
  * Session Bean implementation class ServiceCandidature
@@ -24,7 +28,10 @@ import eu.telecom_bretagne.cabinet_recrutement.service.ServiceNiveauQualificatio
 public class ServiceCandidature implements IServiceCandidature {
 
      //-----------------------------------------------------------------------------
-	  @EJB private CandidatureDAO         candidatureDAO;
+	  @EJB private CandidatureDAO         		candidatureDAO;
+	  @EJB private NiveauQualificationDAO	  	niveauDAO;
+	  @EJB private SecteurActiviteDAO 			secteurDAO;
+	  
     /**
      * Default constructor. 
      */
@@ -52,43 +59,40 @@ public class ServiceCandidature implements IServiceCandidature {
 		return candidaturesRETURN;
 	}
 	
-	public Candidature newCandidature(String nom, Date date_naissance,String adresse_postale,String adresse_email,String cv,int niveauQualification,int[] secteurActivite) {
+	public Candidature newCandidature(String nom, String prenom, Date date_naissance,String adresse_postale,String adresse_email,String cv,Integer niveauQualification, ArrayList<Integer> secteurActivite) {
 		  
-		  Candidature candidature = new Candidature();
-	      
-	      candidature.setNom(nom);
-	      candidature.setDateNaissance(date_naissance);
-	      candidature.setAdressePostale(adresse_postale);
-	      candidature.setAdresseEmail(adresse_email);
-	      candidature.setCv(cv);
-	      
-	      // Ajout dans niveau de qualification
-	      NiveauQualification n;
-	      ServiceNiveauQualification niveau = new ServiceNiveauQualification();
-	      n = niveau.getNiveauQualification(niveauQualification);
-	      candidature.setNiveauQualification(n);
-	      n.addCandidature(candidature);
+		//--[ Création de la candidature et remplissage ]--
+			Candidature candidature = new Candidature();
 	
-	      // Ajout dans secteur activite
-	      SecteurActivite[] tabS = null;
-	      SecteurActivite s;
-	      ServiceSecteurActivite secteur = new ServiceSecteurActivite();
-	      
-	      for(int j=0;j<secteurActivite.length;j++){
-	    	  tabS[j] = secteur.getSecteurActivite(secteurActivite[j]);
-	    	  candidature.getSecteurActivites().add(tabS[j]);
-	      }
-	            
-	      
-	      for (int i=0;i<tabS.length;i++){
-	    	  s = tabS[i];
-		      s.getCandidatures().add(candidature);
-	      }
-	      
-	      SecteurActiviteDAO secDAO = new SecteurActiviteDAO();
-	      secDAO.update(tabS);
-	      
-	      return candidatureDAO.persist(candidature);
+			candidature.setNom(nom);
+			candidature.setPrenom(prenom);
+			candidature.setDateNaissance(date_naissance);
+			candidature.setAdressePostale(adresse_postale);
+			candidature.setAdresseEmail(adresse_email);
+			candidature.setCv(cv);
+			
+		// --[ Traitement du Niveau de Qualification ]--
+			NiveauQualification n;
+			n = niveauDAO.findById(niveauQualification);
+			candidature.setNiveauQualification(n);
+			n.addCandidature(candidature);
+
+		//-- Persistance temporaire de la candidature --
+			//candidature = candidatureDAO.persist(candidature);
+
+		//--[ Traitement du Niveau de Qualification ]--
+			SecteurActivite s;
+			Set<SecteurActivite> set = new HashSet<SecteurActivite>();
+			
+			//-- On recupère chaque secteur d'activité et on ajoute la candidature dedans puis on ajoute le secteur à la candidature
+				for(int j=0;j<secteurActivite.size();j++){
+					s = secteurDAO.findById(secteurActivite.get(j));
+					s.getCandidatures().add(candidature);
+	    			set.add(s);
+				}
+				candidature.setSecteurActivites(set);
+
+		return candidatureDAO.persist(candidature);
 		
 	}
 	@Override
