@@ -60,12 +60,7 @@
 			
 			if((nom != null) && (adresse_postale != null)){
 			      IServiceEntreprise serviceEntreprise = (IServiceEntreprise) ServicesLocator.getInstance().getRemoteInterface("ServiceEntreprise");
-			      
-			      Entreprise entreprise = new Entreprise();
-			      entreprise.setAdressePostale(adresse_postale);
-			      entreprise.setNom(nom);
-			      entreprise.setDescriptif(descriptif);
-			      entreprise = serviceEntreprise.newEntreprise(entreprise);
+			      Entreprise entreprise = serviceEntreprise.newEntreprise(nom,adresse_postale,descriptif);
 			
 			      %>
 			      <div class="panel panel-success">

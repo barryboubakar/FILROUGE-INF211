@@ -43,8 +43,13 @@ public class ServiceEntreprise implements IServiceEntreprise
   }
   //-----------------------------------------------------------------------------
 	@Override
-	public Entreprise newEntreprise(Entreprise entreprise) {
-		return entrepriseDAO.persist(entreprise);
+	public Entreprise newEntreprise(String nom,String adresse_postale,String descriptif) {
+		  Entreprise entreprise = new Entreprise();
+	      entreprise.setAdressePostale(adresse_postale);
+	      entreprise.setNom(nom);
+	      entreprise.setDescriptif(descriptif);
+	      
+	      return entrepriseDAO.persist(entreprise);
 	}
 	@Override
 	public Entreprise updateEntreprise(Entreprise entreprise) {

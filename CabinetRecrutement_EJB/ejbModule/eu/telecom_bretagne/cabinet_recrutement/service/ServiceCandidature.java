@@ -70,6 +70,8 @@ public class ServiceCandidature implements IServiceCandidature {
 			candidature.setAdressePostale(adresse_postale);
 			candidature.setAdresseEmail(adresse_email);
 			candidature.setCv(cv);
+			Date date = new Date();
+			candidature.setDateDepot(date);
 			
 		// --[ Traitement du Niveau de Qualification ]--
 			NiveauQualification n;
