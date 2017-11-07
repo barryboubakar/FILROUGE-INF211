@@ -4,13 +4,11 @@
                 eu.telecom_bretagne.cabinet_recrutement.front.utils.Utils,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceCandidature,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature,
-                java.util.List,
-                java.text.SimpleDateFormat"%>
+                java.util.List"%>
 
 <%
 	IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
 	List<Candidature> candidatures = serviceCandidature.listeDesCandidatures();
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 %>
 
 <div class="row">
@@ -49,7 +47,7 @@
                  <td><%=candidature.getAdressePostale()%></td>
                  <td><%=candidature.getAdresseEmail() %></td>
                  <td><%=candidature.getNiveauQualification().getIntitule()%></td>
-                 <td><%=dateFormat.format(candidature.getDateDepot())%></td>
+                 <td><%= Utils.date2String(candidature.getDateDepot())%></td>
                  <td align="center"><a href="template.jsp?action=infos_candidature&id=<%=candidature.getIdCandidature()%>"><i class="fa fa-eye fa-lg"></i></a></td>
                 </tr>
                 <%
