@@ -28,7 +28,7 @@ public interface IServiceEntreprise
    */
   public List<Entreprise> listeDesEntreprises();
   
-  public Entreprise newEntreprise(Entreprise entreprise);
+  public Entreprise newEntreprise(String nom,String adresse_postale,String descriptif);
   
   public Entreprise updateEntreprise(Entreprise entreprise);
   

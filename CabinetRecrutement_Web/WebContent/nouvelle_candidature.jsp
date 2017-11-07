@@ -39,37 +39,35 @@
                 <input name="action" value="nouvelle_candidature" type="hidden">
                 <input name="traitement" value="go" type="hidden">
                 <div class="form-group">
-                  <input class="form-control" placeholder="Nom" name="nom">
+                  <input class="form-control" placeholder="Nom" name="nom" required>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" placeholder="Prénom" name="prenom">
+                  <input class="form-control" placeholder="Prénom" name="prenom" required >
                 </div>
                 <div class="form-group">
-                  <input class="form-control" placeholder="Date de naissance (format jj/mm/aaaa)" name="date_naissance">
+                  <input class="form-control" placeholder="Date de naissance (format jj/mm/aaaa)" name="date_naissance" required>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" placeholder="Adresse postale (ville)" name="adresse_postale">
+                  <input class="form-control" placeholder="Adresse postale (ville)" name="adresse_postale" required>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" placeholder="Adresse email" name="adresse_email">
+                  <input class="form-control" placeholder="Adresse email" name="adresse_email" required>
                 </div>
                 <div class="form-group">
-                  <textarea class="form-control" placeholder="Curriculum vitæ" rows="5" name="cv"></textarea>
+                  <textarea class="form-control" placeholder="Curriculum vitæ" rows="5" name="cv" required></textarea>
                 </div>
                 <div class="col-lg-3">
                   <div class="form-group">
                     <label>Niveau de qualification</label>
                     <small>
-                      
+                      <div class="radio" required>
                       <%
                   	for (NiveauQualification niv : listeNiveau) { %>
-                        <div class="radio">
                           <label>
-                            <input name="niveau" value="<%= niv.getIdNiveauQualification() %>" type="radio"><%= niv.getIntitule() %>
-                          </label>
-                        </div>
+                            <input name="niveau" value="<%= niv.getIdNiveauQualification() %>" type="radio" required><%= niv.getIntitule() %>
+                          </label><br>
                     <% } %>    
-
+					</div>
                         
                     </small>
                   </div>

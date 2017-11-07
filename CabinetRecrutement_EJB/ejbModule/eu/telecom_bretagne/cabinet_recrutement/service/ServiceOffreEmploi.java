@@ -1,14 +1,22 @@
 package eu.telecom_bretagne.cabinet_recrutement.service;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import eu.telecom_bretagne.cabinet_recrutement.data.dao.CandidatureDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.dao.EntrepriseDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.dao.NiveauQualificationDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.OffreEmploiDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.dao.SecteurActiviteDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
+import eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite;
 
 
 
@@ -22,7 +30,16 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
     /**
      * Default constructor. 
      */
-	@EJB private OffreEmploiDAO         offreDAO;
+	@EJB 
+	private OffreEmploiDAO         offreDAO;
+	@EJB
+	private EntrepriseDAO entrepriseDAO;
+	@EJB
+	private NiveauQualificationDAO niveauQualificationDAO;
+	@EJB
+	private SecteurActiviteDAO secteurActiviteDAO;
+	@EJB
+	private CandidatureDAO candidatureDAO;
 	
     public ServiceOffreEmploi() {
         // TODO Auto-generated constructor stub
@@ -40,7 +57,21 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 
 	@Override
 	public List<OffreEmploi> listeDesOffresPourUneCandidature(int idCandidature) {
-		return offreDAO.findAll(); //a faire
+		
+		Candidature candidature = candidatureDAO.findById(idCandidature); 
+		
+		int idNiveauQualification = candidature.getNiveauQualification().getIdNiveauQualification();
+		Set<SecteurActivite> secteursActivite = candidature.getSecteurActivites();
+		List<OffreEmploi> offresEmploi = new LinkedList<OffreEmploi>();
+		
+		for(SecteurActivite secteurActivite : secteursActivite){
+			int idSecteurActivite = secteurActivite.getIdSecteurActivite();
+			offresEmploi.addAll(offreDAO.findBySecteurActiviteAndNiveauQualification(idSecteurActivite, idNiveauQualification));
+		}
+		Set<OffreEmploi> offresEmploiUniques = new HashSet<OffreEmploi>(offresEmploi);
+		offresEmploi = new LinkedList(offresEmploiUniques);
+		return offresEmploi;
+
 	}
 
 	@Override
