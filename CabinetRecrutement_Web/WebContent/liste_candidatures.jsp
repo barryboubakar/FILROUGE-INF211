@@ -10,7 +10,7 @@
 	IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
 	List<Candidature> candidatures = serviceCandidature.listeDesCandidatures();
 %>
-
+<!--  ENTETE POUR AFFICHAGE -->
 <div class="row">
   <div class="col-lg-12">      
     <div class="panel panel-default">
@@ -18,10 +18,12 @@
       <div class="panel-body">
         <div class="dataTable_wrapper">
           <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="dataTables-example_wrapper">
-          	<div class="row"><div class="col-sm-12"><table aria-describedby="dataTables-example_info" role="grid" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example">
-            <!--
-              Nom des colonnes
-            -->
+          	<div class="row"><div class="col-sm-12">
+        
+<!-- FIN ENTETE POUR AFFICHAGE -->
+
+
+          	<table aria-describedby="dataTables-example_info" role="grid" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example">
             <thead>
               <tr role="row">
               	<th aria-label="Identifiant: activate to sort column descending" aria-sort="ascending" style="width: 126px;" colspan="1" rowspan="1" aria-controls="dataTables-example" tabindex="0" class="sorting_asc">Identifiant</th>
@@ -61,8 +63,11 @@
             <p class="text-center">Suivre les nouvelles candidatures : <a href="cabinet_recrutement_candidatures_rss.jsp"><i class="fa fa-rss-square fa-lg"></i></a></p>
           </div>
         </div>
+        
+        <!-- -------------------------- Affichage PIED DE PAGE ------------------------->
         </div> <!-- /.table-responsive -->
       </div> <!-- /.panel-body -->
     </div> <!-- /.panel -->
   </div> <!-- /.col-lg-12 -->
 </div> <!-- /.row -->
+</div>

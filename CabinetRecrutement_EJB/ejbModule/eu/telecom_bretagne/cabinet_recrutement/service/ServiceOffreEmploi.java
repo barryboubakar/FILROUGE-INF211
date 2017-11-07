@@ -1,5 +1,6 @@
 package eu.telecom_bretagne.cabinet_recrutement.service;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,18 +59,21 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	@Override
 	public List<OffreEmploi> listeDesOffresPourUneCandidature(int idCandidature) {
 		
+		// On récupère la candidature
 		Candidature candidature = candidatureDAO.findById(idCandidature); 
 		
+		// On récupère son Niveau de Qualification et ses Secteurs D'activite a faire matcher
 		int idNiveauQualification = candidature.getNiveauQualification().getIdNiveauQualification();
 		Set<SecteurActivite> secteursActivite = candidature.getSecteurActivites();
+		
+		
 		List<OffreEmploi> offresEmploi = new LinkedList<OffreEmploi>();
+		int idSecteurActivite;
 		
 		for(SecteurActivite secteurActivite : secteursActivite){
-			int idSecteurActivite = secteurActivite.getIdSecteurActivite();
-			offresEmploi.addAll(offreDAO.findBySecteurActiviteAndNiveauQualification(idSecteurActivite, idNiveauQualification));
+			idSecteurActivite = secteurActivite.getIdSecteurActivite();
+			offresEmploi.addAll( offreDAO.findBySecteurActiviteAndNiveauQualification(idSecteurActivite, idNiveauQualification) );
 		}
-		Set<OffreEmploi> offresEmploiUniques = new HashSet<OffreEmploi>(offresEmploi);
-		offresEmploi = new LinkedList(offresEmploiUniques);
 		return offresEmploi;
 
 	}

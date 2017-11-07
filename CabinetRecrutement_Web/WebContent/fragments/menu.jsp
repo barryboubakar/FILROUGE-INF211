@@ -1,12 +1,17 @@
+<%@page import="eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceEntreprise,
+                eu.telecom_bretagne.cabinet_recrutement.service.IServiceCandidature,
+                eu.telecom_bretagne.cabinet_recrutement.service.IServiceOffreEmploi,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise,
-                eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature"%>
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature,
+                java.util.List"%>
 
 <%
   Object utilisateur = session.getAttribute("utilisateur");
+
 %>
 
 <div class="navbar-default sidebar" role="navigation">
@@ -58,14 +63,22 @@
 		} 	
 		else if(utilisateur instanceof Candidature)
 	  	{
+			// Récupération des services
+			IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");
 	  		Candidature c = (Candidature) utilisateur;
+	  		
+	  		List<OffreEmploi> offresEmploi = null;
+
+		  	// On recupere les offres qui matchs
+		  	offresEmploi = serviceOffreEmploi.listeDesOffresPourUneCandidature(c.getIdCandidature());
+		 
 %>
 			<li>
             <a href="#"><i class="fa fa-user"></i> Menu <strong>CANDIDATURE</strong><span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
               <li><a href="template.jsp?action=maj_candidature&id_candidature=<%= c.getIdCandidature()%> ">Mettre à jour les informations de la candidature</a></li>
               <li>
-                <a href="template.jsp?action=candidature_liste_offres&id_candidature=<%= c.getIdCandidature()%> "> Liste des offres d'emploi potentielles (to_do)
+                <a href="template.jsp?action=candidature_liste_offres&id_candidature=<%= c.getIdCandidature()%> "> Liste des offres d'emploi potentielles (<%= offresEmploi.size()%>)
                 </a>
               </li>
             </ul> <!-- /.nav-second-level -->
