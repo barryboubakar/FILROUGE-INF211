@@ -1,28 +1,27 @@
 <%@page import="com.sun.xml.rpc.encoding.SingletonDeserializerFactory"%>
-
 <%@ page language="java" contentType="text/html" pageEncoding="ISO-8859-1"%>
 
 <%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
                 eu.telecom_bretagne.cabinet_recrutement.front.utils.Utils,
-                eu.telecom_bretagne.cabinet_recrutement.service.IServiceCandidature,
-                eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature,
+                eu.telecom_bretagne.cabinet_recrutement.service.IServiceOffreEmploi,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceNiveauQualification,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceSecteurActivite,
-                eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite,
-                java.util.*"%>
+				eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite,
+                java.util.*"
+%>
 
 
   
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-user"></i> Référencer une nouvelle candidature</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="glyphicon glyphicon-transfer"></i> Référencer une nouvelle offre d'emploi</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
         
-
 <!---------------------------------------------------- DEBUT DE NOTRE APPLICATION  ----------------------------------->
-  <%
+<%
 	// On vérifie si on est en mode traitement ou envoi de formulaire
 	  String traitement = request.getParameter("traitement");
 	  if(traitement == null || !traitement.equals("go")) {
@@ -33,35 +32,29 @@
     	  IServiceSecteurActivite serviceSectAct = (IServiceSecteurActivite) ServicesLocator.getInstance().getRemoteInterface("ServiceSecteurActivite");
     	  List<SecteurActivite> listeSectAct = serviceSectAct.listeDesSecteursActivite();
 %>      
+
+
+
             <div class="col-lg-offset-2 col-lg-8
                         col-xs-12">
               <form role="form" action="template.jsp" method="get">
-                <input name="action" value="nouvelle_candidature" type="hidden">
+                <input type="hidden" name="action" value="nouvelle_offre" />
                 <input name="traitement" value="go" type="hidden">
                 <div class="form-group">
-                  <input class="form-control" placeholder="Nom" name="nom">
+                  <input class="form-control" placeholder="Titre de l'offre" name="titre" />
                 </div>
                 <div class="form-group">
-                  <input class="form-control" placeholder="Prénom" name="prenom">
+                  <textarea class="form-control" placeholder="Descriptif de la mission" rows="5" name="descriptif_mission"></textarea>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" placeholder="Date de naissance (format jj/mm/aaaa)" name="date_naissance">
-                </div>
-                <div class="form-group">
-                  <input class="form-control" placeholder="Adresse postale (ville)" name="adresse_postale">
-                </div>
-                <div class="form-group">
-                  <input class="form-control" placeholder="Adresse email" name="adresse_email">
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" placeholder="Curriculum vitæ" rows="5" name="cv"></textarea>
+                  <textarea class="form-control" placeholder="Profil recherché" rows="5" name="profil_recherche"></textarea>
                 </div>
                 <div class="col-lg-3">
                   <div class="form-group">
                     <label>Niveau de qualification</label>
                     <small>
                       
-                      <%
+                         <%
                   	for (NiveauQualification niv : listeNiveau) { %>
                         <div class="radio">
                           <label>
@@ -69,81 +62,65 @@
                           </label>
                         </div>
                     <% } %>    
-
                         
                     </small>
                   </div>
                 </div>
-                
                 <div class="col-lg-9">
                 <div class="form-group">
                   <label>Secteur(s) d'activité</label>
                   <small>
                     <table border="0" width="100%">
-                          <tbody>
+                        <tbody>
                             <% for(SecteurActivite sect : listeSectAct){ %>
                             <tr>
                             		<td><input name="secteur" value="<%= sect.getIdSecteurActivite() %>" type="checkbox"><%= sect.getIntitule() %></td>
                             </tr>  
                             <% } %>                   
                     	</tbody>
-                    </table>                
+                    </table>
                   </small>
                 </div>
                 </div>
-                
                 <div class="text-center">
                   <button type="submit" class="btn btn-success btn-circle btn-lg" name="submit-insertion"><i class="fa fa-check"></i></button>
-                  <button type="reset" class="btn btn-warning btn-circle btn-lg"><i class="fa fa-times"></i></button>
+                  <button type="reset"  class="btn btn-warning btn-circle btn-lg"><i class="fa fa-times"></i></button>
                 </div>
               </form>
- <%             
+            </div>
+            
+<%             
               }
 	else {
 		try {
  
-			Candidature candidature;
+			OffreEmploi offre;
 			
 	    // Variable a traiter
-	    	String traitement_nom = request.getParameter("nom");
-	    	String traitement_prenom = request.getParameter("prenom");
-			String traitement_date_naissance = request.getParameter("date_naissance");
-		  	String traitement_adresse_postale = request.getParameter("adresse_postale");
-		  	String traitement_adresse_email = request.getParameter("adresse_email");
-		  	String traitement_cv = request.getParameter("cv");
+	    	String traitement_titre = request.getParameter("titre");
+	    	String traitement_descriptif = request.getParameter("descriptif_mission");
+			String traitement_profil = request.getParameter("profil_recherche");
 		  	String traitement_niveau = request.getParameter("niveau");
 		  	String traitement_secteur[] = request.getParameterValues("secteur");
 		
 		  	
 	    // Variable pour inserer
-	   		String nom = null;
-	    	String prenom = null;
-	    	Date date_naissance = null;
-	    	String adresse_postale = null;
-	    	String adresse_email = null;
-	    	String cv = null;
+	   		String titre = null;
+	    	String descriptif = null;
+	    	String profil = null;
 	    	Integer niveau = null;
 	    	ArrayList<Integer> secteurs = new ArrayList<Integer>();
 	    	
 	    // Traitement des variables
-			if(traitement_nom != null || !traitement_nom.equals(""))
-				nom = traitement_nom;
+			if(traitement_titre != null || !traitement_titre.equals(""))
+				titre = traitement_titre;
 	    
-			if(traitement_prenom != null || !traitement_prenom.equals(""))
-				prenom = traitement_prenom;
+			if(traitement_descriptif != null || !traitement_descriptif.equals(""))
+				descriptif = traitement_descriptif;
  
-			if(traitement_date_naissance != null || !traitement_date_naissance.equals("")){
-				date_naissance = Utils.string2Date(traitement_date_naissance);
+			if(traitement_profil != null || !traitement_profil.equals("")){
+				profil = traitement_profil;
 			}
-			
-			if(traitement_adresse_postale != null || !traitement_adresse_postale.equals(""))
-				adresse_postale = traitement_adresse_postale;
-			
-			if(traitement_adresse_email != null || !traitement_adresse_email.equals(""))
-				adresse_email = traitement_adresse_email;
-			
-			if(traitement_cv != null || !traitement_cv.equals(""))
-				cv = traitement_cv;
 			
 			if(traitement_niveau != null || !traitement_niveau.equals("")){
 				niveau = Integer.parseInt(traitement_niveau);
@@ -155,8 +132,9 @@
 				}	
 			}
 			
-			 IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");  
-		     candidature = serviceCandidature.newCandidature(nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);		
+			IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");  
+			
+			offre = serviceOffreEmploi.newCandidature(nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);		
 		
 		%>
 		<div class="panel-body">
@@ -232,12 +210,10 @@
 	      String erreur = "La valeur de l'identifiant n'est pas numérique";
 	    }
 	}
-%>
-
-        
- <!---------------------------------------------------- FIN DE NOTRE APPLICATION  ----------------------------------->
+%>            
+            
+ <!---------------------------------------------------- FIN DE NOTRE APPLICATION  ----------------------------------->            
       </div> <!-- /.panel-body -->
     </div> <!-- /.panel -->
   </div> <!-- /.col-lg-12 -->
 </div> <!-- /.row -->
-

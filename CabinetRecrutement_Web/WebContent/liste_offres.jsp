@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html" pageEncoding="ISO-8859-1"%>
 
 <%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
+				eu.telecom_bretagne.cabinet_recrutement.front.utils.Utils,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceOffreEmploi,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi,
-                java.util.List,
-                java.text.SimpleDateFormat"%>
+                java.util.List"%>
 
 <%
   IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");
   List<OffreEmploi> offres = serviceOffreEmploi.listeDesOffres();
-  SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 %>
 
 
@@ -48,7 +47,7 @@
                     <td><%=offreEmp.getTitre()%></td>
                     <td><%=offreEmp.getEntreprise().getNom() %></td>
                     <td><%=offreEmp.getNiveauQualification().getIntitule() %></td>
-                    <td><%= dateFormat.format(offreEmp.getDateDepot())%> </td>                   
+                    <td><%=  Utils.date2String(offreEmp.getDateDepot())%> </td>                   
                     <td align="center"><a href="template.jsp?action=infos_offre&amp;id=<%=offreEmp.getIdOffreEmploi()%>"><i class="fa fa-eye fa-lg"></i></a></td>
                 </tr>
                 <%
