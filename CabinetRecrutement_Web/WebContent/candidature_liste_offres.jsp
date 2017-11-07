@@ -13,8 +13,6 @@
                 java.text.SimpleDateFormat"%>
 
 <%
-	// Recuperation de la session
-	HttpSession maSession = request.getSession();
 
 	// Récupération des services
 	IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");

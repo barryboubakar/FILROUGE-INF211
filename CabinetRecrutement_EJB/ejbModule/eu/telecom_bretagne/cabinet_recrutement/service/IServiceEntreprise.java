@@ -30,9 +30,9 @@ public interface IServiceEntreprise
   
   public Entreprise newEntreprise(String nom,String adresse_postale,String descriptif);
   
-  public Entreprise updateEntreprise(Entreprise entreprise);
+  public Entreprise updateEntreprise(int idEntreprise, String nom,String adresse_postale,String descriptif);
   
-  public void removeEntreprise(Entreprise entreprise);
+  public void removeEntreprise(int id);
   
   //-----------------------------------------------------------------------------
 }

@@ -52,11 +52,15 @@ public class ServiceEntreprise implements IServiceEntreprise
 	      return entrepriseDAO.persist(entreprise);
 	}
 	@Override
-	public Entreprise updateEntreprise(Entreprise entreprise) {
+	public Entreprise updateEntreprise(int idEntreprise, String nom,String adresse_postale,String descriptif) {
+		Entreprise entreprise = entrepriseDAO.findById(idEntreprise);
+		entreprise.setAdressePostale(adresse_postale);
+		entreprise.setDescriptif(descriptif);
+		entreprise.setNom(nom);
 		return entrepriseDAO.update(entreprise);
 	}
 	@Override
-	public void removeEntreprise(Entreprise entreprise) {
-		entrepriseDAO.remove(entreprise);
+	public void removeEntreprise(int id) {
+		entrepriseDAO.remove(entrepriseDAO.findById(id));
 	}
 }
