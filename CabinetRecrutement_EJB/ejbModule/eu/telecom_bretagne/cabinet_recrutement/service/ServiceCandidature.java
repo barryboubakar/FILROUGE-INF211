@@ -82,7 +82,7 @@ public class ServiceCandidature implements IServiceCandidature {
 		//-- Persistance temporaire de la candidature --
 			//candidature = candidatureDAO.persist(candidature);
 
-		//--[ Traitement du Niveau de Qualification ]--
+		//--[ Traitement de secteur d'Activités ]--
 			SecteurActivite s;
 			Set<SecteurActivite> set = new HashSet<SecteurActivite>();
 			
