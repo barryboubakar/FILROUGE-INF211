@@ -9,6 +9,7 @@
                 eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceSecteurActivite,
 				eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite,
+				eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise,
                 java.util.*"
 %>
 
@@ -94,6 +95,7 @@
 	else {
 		try {
  
+			Object utilisateur = session.getAttribute("utilisateur");
 			OffreEmploi offre;
 			
 	    // Variable a traiter
@@ -132,10 +134,14 @@
 				}	
 			}
 			
+		    Entreprise e = (Entreprise) utilisateur;
+		  
+			
 			IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");  
 			
-			offre = serviceOffreEmploi.newCandidature(nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);		
-		
+			
+			offre = serviceOffreEmploi.newOffreEmploi(titre, descriptif, profil, niveau, secteurs, e);
+			
 		%>
 		<div class="panel-body">
         
@@ -143,7 +149,7 @@
                           col-xs-12">
                 <div class="panel panel-success">
                   <div class="panel-heading">
-                    Nouvelle candidature référencée
+                    Nouvelle offre d'emploi référencée
                   </div>
                   <div class="panel-body">
 
@@ -151,41 +157,29 @@
                      <table class="table">
                        <tbody>
                          <tr class="success">
-                           <td><strong>Identifiant (login)</strong></td>
-                           <td><%=candidature.getIdCandidature() %></td>
+                           <td><strong>Identifiant de l'offre</strong></td>
+                           <td><%=offre.getIdOffreEmploi()%></td>
                          </tr>
                          <tr class="warning">
-                           <td><strong>Nom</strong></td>
-                           <td><%=candidature.getNom()%></td>
+                           <td><strong>Titre</strong></td>
+                           <td><%= offre.getTitre()%></td>
                          </tr>
                          <tr class="warning">
-                           <td><strong>Prénom</strong></td>
-                           <td><%=candidature.getPrenom()%></td>
+                           <td><strong>Descriptif de la mission</strong></td>
+                           <td><%= offre.getDescriptifMission()%></td>
                          </tr>
                          <tr class="warning">
-                           <td><strong>Date de naissance</strong></td>
-                           <td><%=Utils.date2String(candidature.getDateNaissance())%></td>
-                         </tr>
-                         <tr class="warning">
-                           <td><strong>Adresse postale (ville)</strong></td>
-                           <td><%=candidature.getAdressePostale()%></td>
-                         </tr>
-                         <tr class="warning">
-                           <td><strong>Adresse email</strong></td>
-                           <td><a href="mailto:<%=candidature.getAdresseEmail()%>"><%=candidature.getAdresseEmail()%></a></td>
-                         </tr>
-                         <tr class="warning">
-                           <td><strong>Curriculum vitæ</strong></td>
-                           <td><%=candidature.getCv()%></td>
+                           <td><strong>Profil recherché</strong></td>
+                           <td><%= offre.getProfilRecherche()%></td>
                          </tr>
                          <tr class="warning">
                            <td><strong>Niveau de qualification</strong></td>
-                           <td><%=candidature.getNiveauQualification().getIntitule()%></td>
+                           <td><%=offre.getNiveauQualification().getIntitule()%></td>
                          </tr>
                          <tr class="warning">
                            <td><strong>Secteur(s) d'activité</strong></td>
                            <td>
-                             <ul><% for (SecteurActivite sect : candidature.getSecteurActivites()){ %>               
+                             <ul><% for (SecteurActivite sect : offre.getSecteurActivites()){ %>               
                                  <li><%=sect.getIntitule() %></li>
                                  <%  } %>
                              </ul>
@@ -193,7 +187,7 @@
                          </tr>
                          <tr class="warning">
                            <td><strong>Date de dépôt</strong></td>
-                           <td><%=Utils.date2String(candidature.getDateDepot()) %></td>
+                           <td><%=Utils.date2String(offre.getDateDepot()) %></td>
                          </tr>
                        </tbody>
                      </table>

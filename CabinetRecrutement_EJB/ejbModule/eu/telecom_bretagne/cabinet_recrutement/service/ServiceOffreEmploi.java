@@ -1,5 +1,7 @@
 package eu.telecom_bretagne.cabinet_recrutement.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -16,6 +18,8 @@ import eu.telecom_bretagne.cabinet_recrutement.data.dao.NiveauQualificationDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.OffreEmploiDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.SecteurActiviteDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
+import eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise;
+import eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.OffreEmploi;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite;
 
@@ -36,9 +40,9 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	@EJB
 	private EntrepriseDAO entrepriseDAO;
 	@EJB
-	private NiveauQualificationDAO niveauQualificationDAO;
+	private NiveauQualificationDAO niveauDAO;
 	@EJB
-	private SecteurActiviteDAO secteurActiviteDAO;
+	private SecteurActiviteDAO secteurDAO;
 	@EJB
 	private CandidatureDAO candidatureDAO;
 	
@@ -84,8 +88,44 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	}
 
 	@Override
-	public OffreEmploi newOffreEmploi(OffreEmploi offreEmploi) {
-		return offreDAO.persist(offreEmploi);
+	public OffreEmploi newOffreEmploi(String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteurActivite, Entreprise e)  {
+		
+	//--[ Création de l'offre et remplissage ]--
+		OffreEmploi offre = new OffreEmploi();
+		
+		offre.setTitre(titre);
+		offre.setDescriptifMission(descriptif_mission);
+		offre.setProfilRecherche(profil_recherche);
+		Date date = new Date();
+		offre.setDateDepot(date);
+		
+	// --[ Traitement du Niveau de Qualification ]--
+		
+		NiveauQualification n;
+		n = niveauDAO.findById(niveauQualification);
+		offre.setNiveauQualification(n);
+		n.addOffreEmploi(offre);
+		
+	//-- Persistance temporaire de l'offre --
+	//offre = offreDAO.persist(offre);
+		
+	//--[ Traitement de secteur d'Activités ]--
+		SecteurActivite s;
+		Set<SecteurActivite> set = new HashSet<SecteurActivite>();
+		
+		//-- On recupère chaque secteur d'activité et on ajoute l'offre dedans puis on ajoute le secteur à l'offre
+			for(int j=0;j<secteurActivite.size();j++){
+				s = secteurDAO.findById(secteurActivite.get(j));
+				s.getOffreEmplois().add(offre);
+				set.add(s);
+			}
+			offre.setSecteurActivites(set); 
+		
+	//--[ Traitement de secteur d'Activités ]--	
+	    offre.setEntreprise(e);
+			
+			
+		return offreDAO.persist(offre);
 	}
 
 	@Override
