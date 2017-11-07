@@ -58,13 +58,17 @@
            </tbody>
           </table></div></div>
        <p>
-        </p><div class="col-md-offset-4 col-md-4">
-          <div class="alert alert-success">
+        </p><!-- <div class="col-md-offset-4 col-md-4">
+            <div class="alert alert-success">
             <p class="text-center">Suivre les nouvelles candidatures : <a href="cabinet_recrutement_candidatures_rss.jsp"><i class="fa fa-rss-square fa-lg"></i></a></p>
           </div>
+<<<<<<< HEAD
         </div>
         
         <!-- -------------------------- Affichage PIED DE PAGE ------------------------->
+=======
+        </div>  -->
+>>>>>>> d80dd9180f4ac3c0353281d8a7e67ad7e4f43eaa
         </div> <!-- /.table-responsive -->
       </div> <!-- /.panel-body -->
     </div> <!-- /.panel -->
