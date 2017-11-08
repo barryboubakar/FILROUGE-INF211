@@ -59,11 +59,11 @@
         </div> <!-- /.table-responsive -->
         <p>
         </p>
-        <div class="col-md-offset-4 col-md-4">
+        <!-- <div class="col-md-offset-4 col-md-4">
           <div class="alert alert-success">
             <p class="text-center">Suivre les nouvelles offres d'emploi : <a href="cabinet_recrutement_offres_rss.jsp"><i class="fa fa-rss-square fa-lg"></i></a></p>
           </div>
-        </div>
+        </div> -->
       </div> <!-- /.panel-body -->
     </div> <!-- /.panel -->
   </div> <!-- /.col-lg-12 -->

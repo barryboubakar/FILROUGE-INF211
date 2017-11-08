@@ -35,13 +35,13 @@
 <div class="row">
   <div class="col-lg-12">      
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-th"></i> Mettre à jour les informations de l'entreprise</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="glyphicon glyphicon-transfer"></i>Mettre à jour les informations de l'offre d'emploi</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
       
             <div class="col-lg-offset-2 col-lg-8               col-xs-12">
             
               <form role="form" action="template.jsp" method="get">
-                <input name="action" value="maj_candidature" type="hidden">
+                <input name="action" value="maj_offre" type="hidden">
                 <input name="traitement" value="go" type="hidden">
                 <input name="id_offre" value="<%= offre.getIdOffreEmploi()%>" type="hidden">
                 
@@ -127,7 +127,7 @@
                 <div class="col-lg-12 text-center">
 	              <br>
 	              <!-- Button trigger modal -->
-	              <button class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionCandidature">
+	              <button class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionOffre">
 	                <i class="glyphicon glyphicon-remove-sign fa-lg"></i> Supprimer cette offre d'emploi
 	              </button>
 	              <!-- Modal -->
@@ -204,7 +204,7 @@
 		<div class="row">
   <div class="col-lg-12">      
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="glyphicon glyphicon-transfert"></i>Mettre à jour les informations de l'offre d'emploi</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="glyphicon glyphicon-transfer"></i>Mettre à jour les informations de l'offre d'emploi</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
       
         

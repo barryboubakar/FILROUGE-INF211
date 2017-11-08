@@ -58,11 +58,12 @@
            </tbody>
           </table></div></div>
        <p>
-        </p><div class="col-md-offset-4 col-md-4">
+        </p>
+        <!-- <div class="col-md-offset-4 col-md-4">
           <div class="alert alert-success">
             <p class="text-center">Suivre les nouvelles candidatures : <a href="cabinet_recrutement_candidatures_rss.jsp"><i class="fa fa-rss-square fa-lg"></i></a></p>
           </div>
-        </div>
+        </div> -->
         
         <!-- -------------------------- Affichage PIED DE PAGE ------------------------->
         </div> <!-- /.table-responsive -->

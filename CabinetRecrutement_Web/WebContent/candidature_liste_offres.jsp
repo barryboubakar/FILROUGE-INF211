@@ -48,19 +48,8 @@
 if(offresEmploi.isEmpty()){%>
 	<p>Aucune offre d'emploi à afficher</p>
 <% } else { %>
-
-<div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="dataTables-example_wrapper">
-	<div class="row">
-		<div class="col-sm-6">
-			<div id="dataTables-example_length" class="dataTables_length">
-			<label>Show <select class="form-control input-sm" aria-controls="dataTables-example" name="dataTables-example_length"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
-		</div>
-		<div class="col-sm-6"><div class="dataTables_filter" id="dataTables-example_filter"><label>Search:<input aria-controls="dataTables-example" placeholder="" class="form-control input-sm" type="search"></label>
-		</div></div>
-	</div>
-		
             
-<table id="affichage" aria-describedby="dataTables-example_info" role="grid" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example">
+	<table id="affichage" aria-describedby="dataTables-example_info" role="grid" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example">
 	<thead>
 		<tr role="row"> 
 			<th tabindex="0" class="sorting" aria-controls="dataTables-example">Numéro</th>
@@ -72,6 +61,7 @@ if(offresEmploi.isEmpty()){%>
 			<th tabindex="0" class="sorting">Informations</th>
 		</tr>
 	</thead>
+	<tbody>
 	<%
 		Set<SecteurActivite> secteursActivite ;
 		List<Candidature> candidatures;
@@ -95,10 +85,9 @@ if(offresEmploi.isEmpty()){%>
 	<%
 		}
 	%>
-</table>
+	</tbody>
+</table></div></div>
 <% } %>
-
-<a href="index.jsp">Retour au menu</a>
 
         <!-- -------------------------- Affichage PIED DE PAGE ------------------------->
         </div> <!-- /.table-responsive -->
