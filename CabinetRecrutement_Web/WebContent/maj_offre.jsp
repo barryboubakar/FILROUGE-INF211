@@ -16,7 +16,7 @@
 <%
 		// On vérifie si on est en mode traitement ou envois de formulaire
 	  	String traitement = request.getParameter("traitement");
-		Integer idOffre = new Integer(request.getParameter("id_offre"));
+		int idOffre = new Integer(request.getParameter("id_offre"));
 		
 	  if(traitement == null || !traitement.equals("go")) {
 
