@@ -68,7 +68,7 @@ public class OffreEmploiDAO
   
   public OffreEmploi persist(OffreEmploi offreEmploi){
 	  entityManager.persist(offreEmploi);
-	  return entityManager.find(OffreEmploi.class, offreEmploi);
+	  return offreEmploi;
   }  
   
   public OffreEmploi update(OffreEmploi offreEmploi){

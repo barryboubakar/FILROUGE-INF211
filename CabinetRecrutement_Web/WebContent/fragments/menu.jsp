@@ -45,16 +45,26 @@
       -->
 
       <li><h4>&nbsp;</h4></li>
-<%      if(utilisateur instanceof Entreprise)
+<%      
+		
+		//Récupération des services
+		IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");
+		List<OffreEmploi> offresEmploi = null;
+
+		if(utilisateur instanceof Entreprise)
 	  	{
+	
 			Entreprise e = (Entreprise) utilisateur;
+
+		// On recupere les offres qui matchs
+		  	offresEmploi = serviceOffreEmploi.listeDesOffresPourUneEntreprise(e.getIdEntreprise());
 %>  		
       <li><a href="#"><i class="fa fa-th"></i> Menu <strong>ENTREPRISE</strong><span class="fa arrow"></span></a>
       <ul class="nav nav-second-level">
               <li><a href="template.jsp?action=maj_entreprise&id_entreprise=<%= e.getIdEntreprise() %>">Mettre à jour les informations de l'entreprise</a></li>
               <li><a href="template.jsp?action=nouvelle_offre">Nouvelle offre d'emploi</a></li>
               <li>
-                <a href="template.jsp?action=entreprise_liste_offres&id_entreprise=<%= e.getIdEntreprise() %>">Liste de mes offres d'emploi (<%= e.getOffreEmplois().size()%>)</a>
+                <a href="template.jsp?action=entreprise_liste_offres&id_entreprise=<%= e.getIdEntreprise() %>">Liste de mes offres d'emploi (<%= offresEmploi.size()%>)</a>
               </li>
             </ul> <!-- /.nav-second-level -->
       </li>
@@ -63,11 +73,8 @@
 		} 	
 		else if(utilisateur instanceof Candidature)
 	  	{
-			// Récupération des services
-			IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");
+			
 	  		Candidature c = (Candidature) utilisateur;
-	  		
-	  		List<OffreEmploi> offresEmploi = null;
 
 		  	// On recupere les offres qui matchs
 		  	offresEmploi = serviceOffreEmploi.listeDesOffresPourUneCandidature(c.getIdCandidature());

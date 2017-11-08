@@ -79,8 +79,6 @@ public class ServiceCandidature implements IServiceCandidature {
 			candidature.setNiveauQualification(n);
 			n.addCandidature(candidature);
 
-		//-- Persistance temporaire de la candidature --
-			//candidature = candidatureDAO.persist(candidature);
 
 		//--[ Traitement de secteur d'Activités ]--
 			SecteurActivite s;

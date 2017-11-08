@@ -123,7 +123,7 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 		
 	//--[ Traitement de l'entreprise ]--	
 		Entreprise e;
-		e = entrepriseDAO.findById(entreprise);
+		e = entrepriseDAO.findById(entreprise.intValue());
 		offre.setEntreprise(e);
 		e.addOffreEmploi(offre);
 		
