@@ -3,13 +3,13 @@
 		Object utilisateur = session.getAttribute("utilisateur");
 		session.invalidate();
 %>			
-<%@ page language="java" contentType="text/html" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html" pageEncoding="ISO-8859-1"%>
 
 <%@page import="eu.telecom_bretagne.cabinet_recrutement.front.utils.ServicesLocator,
                 eu.telecom_bretagne.cabinet_recrutement.front.utils.Utils,
-                eu.telecom_bretagne.cabinet_recrutement.service.IServiceEntreprise,
-                eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise"%>
-                
+                eu.telecom_bretagne.cabinet_recrutement.service.IServiceCandidature,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature,
+                java.util.*"%>
                 
                 <!--  ENTETE POUR AFFICHAGE -->
 <!DOCTYPE html>
@@ -35,28 +35,31 @@
     <div class="panel panel-default">
       <div class="panel-heading"><h3><i class="fa fa-user"></i> Suppression d'une entreprise</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
-
+       
+        
 <!-- FIN ENTETE POUR AFFICHAGE -->
 
 <div class="col-lg-offset-2 col-lg-8 col-xs-12">
 <%
-		// On vérifie si on est en mode traitement ou envois de formulaire
-		int idEntreprise = new Integer(request.getParameter("id_entreprise"));
-
-		//Récupération du service et de l'entreprise
-		IServiceEntreprise serviceEntreprise = (IServiceEntreprise) ServicesLocator.getInstance().getRemoteInterface("ServiceEntreprise");
-		Entreprise e = serviceEntreprise.getEntreprise(idEntreprise);
 		
-		//Suppression de l'entreprise
-		serviceEntreprise.removeEntreprise(idEntreprise);
 
+			// On vérifie si on est en mode traitement ou envois de formulaire
+			int idCandidature = new Integer(request.getParameter("sup"));
+	
+			//Récupération du service et de la candidature
+			IServiceCandidature serviceCandidature = (IServiceCandidature ) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
+			Candidature c = serviceCandidature.getCandidature(idCandidature);
+			
+			//Suppression de la candidature
+			serviceCandidature.removeCandidature(c);	
+	
 %>
 
 	<div class="panel-body">
         
             <div class="row col-xs-offset-1 col-xs-10">
                   <div class="alert alert-danger text-center">
-                    L'entreprise <strong><%= e.getNom() %></strong> (identifiant=ENT_<%= e.getIdEntreprise() %>) a été supprimée.
+                    La candidature de <strong><%= request.getParameter("nom") %> <%= request.getParameter("prenom")  %></strong> (identifiant=CAND_<%= request.getParameter("sup")  %>) a été supprimée.
                   </div>
             </div>
         

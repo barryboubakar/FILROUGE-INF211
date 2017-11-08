@@ -5,6 +5,7 @@
 
 <%
   Object utilisateur = session.getAttribute("utilisateur");
+
 %>
 
 <div class="navbar-header">

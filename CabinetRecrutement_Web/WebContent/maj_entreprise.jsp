@@ -76,7 +76,7 @@
 	                    </div>
 	                    <div class="modal-footer">
 	                      <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-	                      <button type="button" class="btn btn-primary" onclick="window.location.href='template.jsp?action=suppression_entreprise&id_entreprise=<%= ent.getIdEntreprise() %>'">
+	                      <button type="button" class="btn btn-primary" onclick="window.location.href='suppression_entreprise.jsp?id_entreprise=<%= ent.getIdEntreprise() %>'">
 	                        Supprimer
 	                      </button>
 	                    </div>

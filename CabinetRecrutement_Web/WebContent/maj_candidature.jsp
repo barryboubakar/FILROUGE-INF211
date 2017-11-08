@@ -62,7 +62,7 @@
                 </div>
                 
                 <div class="form-group">
-                  <input class="form-control" placeholder="Date de naissance (format jj/mm/aaaa)" name="date_naissance" required value="<%= cand.getDateNaissance() %>">
+                  <input class="form-control" placeholder="Date de naissance (format jj/mm/aaaa)" name="date_naissance" required value="<%= Utils.date2String(cand.getDateNaissance()) %>">
                 </div>
                 
                 <div class="form-group">
@@ -137,14 +137,13 @@
 	                  <button type="submit" class="btn btn-success btn-circle btn-lg" name="submit-insertion"><i class="fa fa-check"></i></button>
 	                  <button type="reset" class="btn btn-warning btn-circle btn-lg"><i class="fa fa-times"></i></button>
 	                </div>
-                <div class="col-lg-12">
               </form>
-                
+                </div>
                 <div class="col-lg-12 text-center">
 	              <br>
 	              <!-- Button trigger modal -->
 	              <button class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionCandidature">
-	                <i class="glyphicon glyphicon-remove-sign fa-lg"></i> Supprimer cette entreprise
+	                <i class="glyphicon glyphicon-remove-sign fa-lg"></i> Supprimer cette candidature
 	              </button>
 	              <!-- Modal -->
 	              <div class="modal fade" id="modalSuppressionCandidature" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -152,14 +151,14 @@
 	                  <div class="modal-content">
 	                    <div class="modal-header">
 	                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	                      <h4 class="modal-title" id="myModalLabel">Êtes-vous sûr de vouloir supprimer votre entreprise<br>et les offres d'emploi associées ?</h4>
+	                      <h4 class="modal-title" id="myModalLabel">Êtes-vous sûr de vouloir supprimer votre candidature<br> ?</h4>
 	                    </div>
 	                    <div class="modal-body">
 	                      Attention, cette opération n'est pas réversible !
 	                    </div>
 	                    <div class="modal-footer">
 	                      <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-	                      <button type="button" class="btn btn-primary" onclick="window.location.href='template.jsp?action=suppression_candidature&id_candidature=<%= cand.getIdCandidature() %>'">
+	                      <button type="button" class="btn btn-primary" onclick="window.location.href='suppression_candidature.jsp?sup=<%= cand.getIdCandidature() %>'">
 	                        Supprimer
 	                      </button>
 	                    </div>
@@ -174,65 +173,64 @@
 	else {		
 	
 		try {
-			Candidature candidature;
-			
-			System.out.println(idCandidature);
-			
-	    // Variable a traiter
-	    	String traitement_nom = request.getParameter("nom");
-	    	String traitement_prenom = request.getParameter("prenom");
-			String traitement_date_naissance = request.getParameter("date_naissance");
-		  	String traitement_adresse_postale = request.getParameter("adresse_postale");
-		  	String traitement_adresse_email = request.getParameter("adresse_email");
-		  	String traitement_cv = request.getParameter("cv");
-		  	String traitement_niveau = request.getParameter("niveau");
-		  	String traitement_secteur[] = request.getParameterValues("secteur");
-		
-		  	
-	    // Variable pour inserer
-	   		String nom = null;
-	    	String prenom = null;
-	    	Date date_naissance = null;
-	    	String adresse_postale = null;
-	    	String adresse_email = null;
-	    	String cv = null;
-	    	Integer niveau = null;
-	    	ArrayList<Integer> secteurs = new ArrayList<Integer>();
-	    	
-	    // Traitement des variables
-			if(traitement_nom != null || !traitement_nom.equals(""))
-				nom = traitement_nom;
-	    
-			if(traitement_prenom != null || !traitement_prenom.equals(""))
-				prenom = traitement_prenom;
- 
-			if(traitement_date_naissance != null || !traitement_date_naissance.equals("")){
-				date_naissance = Utils.string2Date(traitement_date_naissance);
-			}
-			
-			if(traitement_adresse_postale != null || !traitement_adresse_postale.equals(""))
-				adresse_postale = traitement_adresse_postale;
-			
-			if(traitement_adresse_email != null || !traitement_adresse_email.equals(""))
-				adresse_email = traitement_adresse_email;
-			
-			if(traitement_cv != null || !traitement_cv.equals(""))
-				cv = traitement_cv;
-			
-			if(traitement_niveau != null || !traitement_niveau.equals("")){
-				niveau = Integer.parseInt(traitement_niveau);
-			}
+				Candidature candidature;
 				
-			if(traitement_secteur != null || !traitement_secteur[0].equals("")){
-				for(int i=0;i<traitement_secteur.length;i++){
-					secteurs.add(Integer.parseInt(traitement_secteur[i]));
-				}	
-			}
+				System.out.println(idCandidature);
+				
+		    // Variable a traiter
+		    	String traitement_nom = request.getParameter("nom");
+		    	String traitement_prenom = request.getParameter("prenom");
+				String traitement_date_naissance = request.getParameter("date_naissance");
+			  	String traitement_adresse_postale = request.getParameter("adresse_postale");
+			  	String traitement_adresse_email = request.getParameter("adresse_email");
+			  	String traitement_cv = request.getParameter("cv");
+			  	String traitement_niveau = request.getParameter("niveau");
+			  	String traitement_secteur[] = request.getParameterValues("secteur");
 			
-			
-			 IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");  
-		     candidature = serviceCandidature.updateCandidature(idCandidature,nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);		
-		
+			  	
+		    // Variable pour inserer
+		   		String nom = null;
+		    	String prenom = null;
+		    	Date date_naissance = null;
+		    	String adresse_postale = null;
+		    	String adresse_email = null;
+		    	String cv = null;
+		    	Integer niveau = null;
+		    	ArrayList<Integer> secteurs = new ArrayList<Integer>();
+		    	
+		    // Traitement des variables
+				if(traitement_nom != null || !traitement_nom.equals(""))
+					nom = traitement_nom;
+		    
+				if(traitement_prenom != null || !traitement_prenom.equals(""))
+					prenom = traitement_prenom;
+	 
+				if(traitement_date_naissance != null || !traitement_date_naissance.equals("")){
+					date_naissance = Utils.string2Date(traitement_date_naissance);
+				}
+				
+				if(traitement_adresse_postale != null || !traitement_adresse_postale.equals(""))
+					adresse_postale = traitement_adresse_postale;
+				
+				if(traitement_adresse_email != null || !traitement_adresse_email.equals(""))
+					adresse_email = traitement_adresse_email;
+				
+				if(traitement_cv != null || !traitement_cv.equals(""))
+					cv = traitement_cv;
+				
+				if(traitement_niveau != null || !traitement_niveau.equals("")){
+					niveau = Integer.parseInt(traitement_niveau);
+				}
+					
+				if(traitement_secteur != null || !traitement_secteur[0].equals("")){
+					for(int i=0;i<traitement_secteur.length;i++){
+						secteurs.add(Integer.parseInt(traitement_secteur[i]));
+					}	
+				}
+				
+				
+				 IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");  
+			     candidature = serviceCandidature.updateCandidature(idCandidature,nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);					
 		%>
 		<div class="row">
   <div class="col-lg-12">      
@@ -304,7 +302,7 @@
                 </div>
               </div>
               
-      </div>
+     	 </div>
 		<%
 		}
 		catch(NumberFormatException e)

@@ -54,6 +54,11 @@
     action = "accueil.jsp";
   else
     action = action + ".jsp";
+  
+  if( (action.equalsIgnoreCase("suppression_candidature")) || (action.equalsIgnoreCase("suppression_entreprise")) || (action.equalsIgnoreCase("suppression_offre")) ){
+	  session.invalidate();
+  	  session.removeAttribute("utilisateur");
+  }
 %>
 
 <!DOCTYPE html>
