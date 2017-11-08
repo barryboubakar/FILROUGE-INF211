@@ -46,8 +46,8 @@ create table offre_emploi
   descriptif_mission       text,
   profil_recherche    	   text,  
   date_depot	           date,
-  entreprise_id            integer references entreprise(id_entreprise) not null,
-  niveau_qualification_id  integer references niveau_qualification(id_niveau_qualification) not null
+  entreprise_id            integer references entreprise(id_entreprise) ON DELETE CASCADE ON UPDATE CASCADE,
+  niveau_qualification_id  integer references niveau_qualification(id_niveau_qualification) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -61,22 +61,22 @@ create table candidature
   adresse_email		  varchar(70),
   cv			  text,
   date_depot		  date not null,
-  niveau_qualification_id integer references niveau_qualification(id_niveau_qualification) not null
+  niveau_qualification_id integer references niveau_qualification(id_niveau_qualification)
 );
 
 
 create table assoc_secteur_offre
 (
-  offre_emploi_id 	integer references offre_emploi(id_offre_emploi),
-  secteur_activite_id   integer references secteur_activite(id_secteur_activite),
+  offre_emploi_id 	integer references offre_emploi(id_offre_emploi) ON DELETE CASCADE ON UPDATE CASCADE,
+  secteur_activite_id   integer references secteur_activite(id_secteur_activite) ON DELETE CASCADE ON UPDATE CASCADE,
   primary key (offre_emploi_id, secteur_activite_id)
 );
 
 
 create table assoc_secteur_candidature
 (
-  secteur_activite_id        integer references secteur_activite(id_secteur_activite),
-  candidature_id             integer references candidature(id_candidature),
+  secteur_activite_id        integer references secteur_activite(id_secteur_activite) ON DELETE CASCADE ON UPDATE CASCADE,
+  candidature_id             integer references candidature(id_candidature) ON DELETE CASCADE ON UPDATE CASCADE,
   primary key (secteur_activite_id, candidature_id)
 );
 

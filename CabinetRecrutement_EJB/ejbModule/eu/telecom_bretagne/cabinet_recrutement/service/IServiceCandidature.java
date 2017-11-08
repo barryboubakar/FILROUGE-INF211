@@ -18,9 +18,9 @@ public interface IServiceCandidature {
 	
 	  public List<Candidature> listeDesCandidaturesPourUneOffre(OffreEmploi offre);
 	  
-	  public Candidature newCandidature(String nom, String prenom, Date date_naissance,String adresse_postale,String adresse_email,String cv,Integer niveauQualification,ArrayList<Integer> SecteurActivite);
+	  public Candidature newCandidature(String nom, String prenom, Date date_naissance,String adresse_postale,String adresse_email,String cv,Integer niveauQualification,ArrayList<Integer> secteursActivite);
 	  
-	  public Candidature updateCandidature(Candidature candidature);
+	  public Candidature updateCandidature(int id,String nom, String prenom, Date date_naissance,String adresse_postale,String adresse_email,String cv,Integer idniveauQualification, ArrayList<Integer> secteursActivite);
 	  
 	  public void removeCandidature(Candidature candidature);	  
 	  
