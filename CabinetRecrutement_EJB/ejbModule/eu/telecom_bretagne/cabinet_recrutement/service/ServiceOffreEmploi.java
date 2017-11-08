@@ -131,8 +131,44 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	}
 
 	@Override
-	public OffreEmploi updateOffreEmploi(OffreEmploi offreEmploi) {
-		return offreDAO.update(offreEmploi);
+	 public OffreEmploi updateOffreEmploi(Integer idOffre, String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteursActivite){
+	
+		//--[ Création de l'offre et remplissage ]--
+		OffreEmploi offre = offreDAO.findById(idOffre);
+
+		offre.setTitre(titre);
+		offre.setDescriptifMission(descriptif_mission);
+		offre.setProfilRecherche(profil_recherche);
+		Date date = new Date();
+		offre.setDateDepot(date);
+		
+		// Récupération du niveau de qualification associé à l'id
+		NiveauQualification niveau = niveauDAO.findById(niveauQualification);		
+		offre.setNiveauQualification(niveau);
+		
+		// Suppression des secteurs d'activité associés à l'offre
+		Set<SecteurActivite> secteursAct = offre.getSecteurActivites();
+		for(SecteurActivite s : secteursAct){
+			s.getOffreEmplois().remove(offre);
+		}
+		offre.getSecteurActivites().removeAll(secteursAct);
+		
+// Récupération des secteurs d'activité associés aux id
+		Set<SecteurActivite> secteursActiviteOffre = new HashSet<SecteurActivite>();
+		SecteurActivite s;
+		for(int id_Sect : secteursActivite){
+			if(id_Sect != 0){
+				s = secteurDAO.findById(id_Sect);
+				// Ajout du secteur d'activité à l'offre
+				secteursActiviteOffre.add(s);
+				// Ajout de la candidature au secteur d'activité
+				s.getOffreEmplois().add(offre);
+			}
+		}
+		offre.setSecteurActivites(secteursActiviteOffre);
+			
+	// Modification de l'offre
+			return offreDAO.update(offre);
 	}
 
 	@Override

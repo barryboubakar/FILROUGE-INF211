@@ -8,6 +8,7 @@
                 eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification,
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceSecteurActivite,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite,
+                eu.telecom_bretagne.cabinet_recrutement.data.model.Entreprise,
                 java.util.*, java.util.List, java.util.HashSet"%>
 
 
@@ -15,7 +16,7 @@
 <%
 		// On vérifie si on est en mode traitement ou envois de formulaire
 	  	String traitement = request.getParameter("traitement");
-		int idOffre = new Integer(request.getParameter("id_offre"));
+		Integer idOffre = new Integer(request.getParameter("id_offre"));
 		
 	  if(traitement == null || !traitement.equals("go")) {
 
@@ -156,50 +157,33 @@
 	else {		
 	
 		try {
-				OffreEmploi offreEmp;
+				OffreEmploi offre;
 				
-				System.out.println(idOffre);
-				
-		    // Variable a traiter
-		    	String traitement_nom = request.getParameter("nom");
-		    	String traitement_prenom = request.getParameter("prenom");
-				String traitement_date_naissance = request.getParameter("date_naissance");
-			  	String traitement_adresse_postale = request.getParameter("adresse_postale");
-			  	String traitement_adresse_email = request.getParameter("adresse_email");
-			  	String traitement_cv = request.getParameter("cv");
+			// Variable a traiter
+		    	String traitement_titre = request.getParameter("titre");
+		    	String traitement_descriptif = request.getParameter("descriptif_mission");
+				String traitement_profil = request.getParameter("profil_recherche");
 			  	String traitement_niveau = request.getParameter("niveau");
 			  	String traitement_secteur[] = request.getParameterValues("secteur");
 			
 			  	
-		    // Variable pour inserer
-		   		String nom = null;
-		    	String prenom = null;
-		    	Date date_naissance = null;
-		    	String adresse_postale = null;
-		    	String adresse_email = null;
-		    	String cv = null;
+			    // Variable pour inserer
+		   		String titre = null;
+		    	String descriptif = null;
+		    	String profil = null;
 		    	Integer niveau = null;
 		    	ArrayList<Integer> secteurs = new ArrayList<Integer>();
 		    	
-		    // Traitement des variables
-				if(traitement_nom != null || !traitement_nom.equals(""))
-					nom = traitement_nom;
+		    	  // Traitement des variables
+				if(traitement_titre != null || !traitement_titre.equals(""))
+					titre = traitement_titre;
 		    
-				if(traitement_prenom != null || !traitement_prenom.equals(""))
-					prenom = traitement_prenom;
+				if(traitement_descriptif != null || !traitement_descriptif.equals(""))
+					descriptif = traitement_descriptif;
 	 
-				if(traitement_date_naissance != null || !traitement_date_naissance.equals("")){
-					date_naissance = Utils.string2Date(traitement_date_naissance);
+				if(traitement_profil != null || !traitement_profil.equals("")){
+					profil = traitement_profil;
 				}
-				
-				if(traitement_adresse_postale != null || !traitement_adresse_postale.equals(""))
-					adresse_postale = traitement_adresse_postale;
-				
-				if(traitement_adresse_email != null || !traitement_adresse_email.equals(""))
-					adresse_email = traitement_adresse_email;
-				
-				if(traitement_cv != null || !traitement_cv.equals(""))
-					cv = traitement_cv;
 				
 				if(traitement_niveau != null || !traitement_niveau.equals("")){
 					niveau = Integer.parseInt(traitement_niveau);
@@ -212,13 +196,15 @@
 				}
 				
 				
-				 IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");  
-			     candidature = serviceCandidature.updateCandidature(idCandidature,nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);					
+				IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");  
+				
+				offre = serviceOffreEmploi.updateOffreEmploi(idOffre, titre, descriptif, profil, niveau, secteurs);
+			 				
 		%>
 		<div class="row">
   <div class="col-lg-12">      
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-th"></i>Mettre à jour les informations de la candidature</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="glyphicon glyphicon-transfert"></i>Mettre à jour les informations de l'offre d'emploi</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
       
         
@@ -226,7 +212,7 @@
                           col-xs-12">
                 <div class="panel panel-success">
                   <div class="panel-heading">
-                    Informations mises à jour pour la candidature
+                    Informations mises à jour pour l'offre
                   </div>
                   <div class="panel-body">
 
@@ -234,41 +220,29 @@
                      <table class="table">
                        <tbody>
                          <tr class="success">
-                           <td><strong>Identifiant (login)</strong></td>
-                           <td><%=candidature.getIdCandidature() %></td>
+                           <td><strong>Identifiant de l'offre</strong></td>
+                           <td><%=offre.getIdOffreEmploi()%></td>
                          </tr>
                          <tr class="warning">
-                           <td><strong>Nom</strong></td>
-                           <td><%=candidature.getNom()%></td>
+                           <td><strong>Titre</strong></td>
+                           <td><%= offre.getTitre()%></td>
                          </tr>
                          <tr class="warning">
-                           <td><strong>Prénom</strong></td>
-                           <td><%=candidature.getPrenom()%></td>
+                           <td><strong>Descriptif de la mission</strong></td>
+                           <td><%= offre.getDescriptifMission()%></td>
                          </tr>
                          <tr class="warning">
-                           <td><strong>Date de naissance</strong></td>
-                           <td><%=Utils.date2String(candidature.getDateNaissance())%></td>
-                         </tr>
-                         <tr class="warning">
-                           <td><strong>Adresse postale (ville)</strong></td>
-                           <td><%=candidature.getAdressePostale()%></td>
-                         </tr>
-                         <tr class="warning">
-                           <td><strong>Adresse email</strong></td>
-                           <td><a href="mailto:<%=candidature.getAdresseEmail()%>"><%=candidature.getAdresseEmail()%></a></td>
-                         </tr>
-                         <tr class="warning">
-                           <td><strong>Curriculum vitæ</strong></td>
-                           <td><%=candidature.getCv()%></td>
+                           <td><strong>Profil recherché</strong></td>
+                           <td><%= offre.getProfilRecherche()%></td>
                          </tr>
                          <tr class="warning">
                            <td><strong>Niveau de qualification</strong></td>
-                           <td><%=candidature.getNiveauQualification().getIntitule()%></td>
+                           <td><%=offre.getNiveauQualification().getIntitule()%></td>
                          </tr>
                          <tr class="warning">
                            <td><strong>Secteur(s) d'activité</strong></td>
                            <td>
-                             <ul><% for (SecteurActivite sect : candidature.getSecteurActivites()){ %>               
+                             <ul><% for (SecteurActivite sect : offre.getSecteurActivites()){ %>               
                                  <li><%=sect.getIntitule() %></li>
                                  <%  } %>
                              </ul>
@@ -276,7 +250,7 @@
                          </tr>
                          <tr class="warning">
                            <td><strong>Date de dépôt</strong></td>
-                           <td><%=Utils.date2String(candidature.getDateDepot()) %></td>
+                           <td><%=Utils.date2String(offre.getDateDepot()) %></td>
                          </tr>
                        </tbody>
                      </table>

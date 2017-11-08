@@ -169,8 +169,7 @@
 	
 		try {
 				Candidature candidature;
-				
-				System.out.println(idCandidature);
+			
 				
 		    // Variable a traiter
 		    	String traitement_nom = request.getParameter("nom");
@@ -222,8 +221,7 @@
 						secteurs.add(Integer.parseInt(traitement_secteur[i]));
 					}	
 				}
-				
-				
+
 				 IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");  
 			     candidature = serviceCandidature.updateCandidature(idCandidature,nom, prenom, date_naissance, adresse_postale, adresse_email, cv, niveau, secteurs);					
 		%>
@@ -246,7 +244,7 @@
                      <table class="table">
                        <tbody>
                          <tr class="success">
-                           <td><strong>Identifiant (login)</strong></td>
+                           <td><strong>Identifiant de la candidature</strong></td>
                            <td><%=candidature.getIdCandidature() %></td>
                          </tr>
                          <tr class="warning">

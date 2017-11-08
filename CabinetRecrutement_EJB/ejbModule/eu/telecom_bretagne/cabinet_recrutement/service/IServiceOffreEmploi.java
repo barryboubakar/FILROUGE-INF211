@@ -23,7 +23,7 @@ public interface IServiceOffreEmploi {
 	  
 	  public OffreEmploi newOffreEmploi(String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteurActivite, Integer entreprise) ;
 	  
-	  public OffreEmploi updateOffreEmploi(OffreEmploi offreEmploi);
+	  public OffreEmploi updateOffreEmploi(Integer idOffre, String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteursActivite);
 	  
 	  public void removeOffreEmploi(OffreEmploi offreEmploi);
 }
