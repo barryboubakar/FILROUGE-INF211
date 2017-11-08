@@ -16,7 +16,7 @@
 <%
 		// On vérifie si on est en mode traitement ou envois de formulaire
 	  	String traitement = request.getParameter("traitement");
-		Integer idOffre = new Integer(request.getParameter("id_offre"));
+		int idOffre = new Integer(request.getParameter("id_offre"));
 		
 	  if(traitement == null || !traitement.equals("go")) {
 
@@ -61,7 +61,7 @@
                   <input class="form-control" placeholder="Profil recherché" name="profil_recherche" required value="<%= offre.getProfilRecherche() %>">
                 </div>
                 
-                
+             
 	            <div class="col-lg-3">
 	                  <div class="form-group">
 	                    <label>Niveau de qualification</label>
@@ -188,16 +188,14 @@
 				if(traitement_niveau != null || !traitement_niveau.equals("")){
 					niveau = Integer.parseInt(traitement_niveau);
 				}
-					
+
 				if(traitement_secteur != null || !traitement_secteur[0].equals("")){
 					for(int i=0;i<traitement_secteur.length;i++){
 						secteurs.add(Integer.parseInt(traitement_secteur[i]));
 					}	
-				}
-				
+				} 
 				
 				IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");  
-				
 				offre = serviceOffreEmploi.updateOffreEmploi(idOffre, titre, descriptif, profil, niveau, secteurs);
 			 				
 		%>
