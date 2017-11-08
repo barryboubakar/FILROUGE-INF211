@@ -53,6 +53,7 @@ if(offresEmploi.isEmpty()){%>
 		<th tabindex="0" class="sorting">Secteur(s) d'activité</th>
 		<th tabindex="0" class="sorting">Date de dépôt</th>
 		<th tabindex="0" class="sorting">Candidatures potentielles</th>
+		<th tabindex="0" class="sorting">Modification</th>
 		<th tabindex="0" class="sorting">Informations</th>
 	</tr>
 	<%
@@ -78,6 +79,9 @@ if(offresEmploi.isEmpty()){%>
 				<a href="template.jsp?action=infos_candidature&id=<%=candidature.getIdCandidature()%> "> <%=candidature.getPrenom()%> <%= candidature.getNom().toUpperCase() %></br>
 			<% } %>
 		</td>
+		<td align="center">
+                        <a href="template.jsp?action=maj_offre&id_offre=<%=offreEmploi.getIdOffreEmploi()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>     
+        </td>
 		<td align="center"><a href="template.jsp?action=infos_offre&amp;id=<%=offreEmploi.getIdOffreEmploi()%>"><i class="fa fa-eye fa-lg"></i></a></td>
 	</tr>
 	<%

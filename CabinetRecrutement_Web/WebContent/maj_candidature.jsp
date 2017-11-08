@@ -9,12 +9,7 @@
                 eu.telecom_bretagne.cabinet_recrutement.service.IServiceSecteurActivite,
                 eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite,
                 java.util.*, java.util.List, java.util.HashSet"%>
-                
-                <!--  ENTETE POUR AFFICHAGE -->
 
-       
-        
-<!-- FIN ENTETE POUR AFFICHAGE -->
 
 <!---------------------------------------------------- DEBUT DE NOTRE APPLICATION  ----------------------------------->
 <%
@@ -39,7 +34,7 @@
 <div class="row">
   <div class="col-lg-12">      
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-th"></i> Mettre à jour les informations de l'entreprise</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="fa fa-user"></i> Mettre à jour les informations de la candidature</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
       
             <div class="col-lg-offset-2 col-lg-8               col-xs-12">
