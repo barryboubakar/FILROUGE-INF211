@@ -21,7 +21,7 @@ public interface IServiceOffreEmploi {
 	  
 	  public List<OffreEmploi> listeDesOffres();
 	  
-	  public OffreEmploi newOffreEmploi(String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteurActivite, Entreprise e) ;
+	  public OffreEmploi newOffreEmploi(String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteurActivite, Integer entreprise) ;
 	  
 	  public OffreEmploi updateOffreEmploi(OffreEmploi offreEmploi);
 	  

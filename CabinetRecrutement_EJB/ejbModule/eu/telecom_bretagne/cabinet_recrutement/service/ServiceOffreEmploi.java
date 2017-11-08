@@ -88,7 +88,7 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	}
 
 	@Override
-	public OffreEmploi newOffreEmploi(String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteurActivite, Entreprise e)  {
+	public OffreEmploi newOffreEmploi(String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteurActivite, Integer entreprise)  {
 		
 	//--[ Création de l'offre et remplissage ]--
 		OffreEmploi offre = new OffreEmploi();
@@ -121,10 +121,12 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 			}
 			offre.setSecteurActivites(set); 
 		
-	//--[ Traitement de secteur d'Activités ]--	
-	    offre.setEntreprise(e);
-			
-			
+	//--[ Traitement de l'entreprise ]--	
+		Entreprise e;
+		e = entrepriseDAO.findById(entreprise);
+		offre.setEntreprise(e);
+		e.addOffreEmploi(offre);
+		
 		return offreDAO.persist(offre);
 	}
 

@@ -140,7 +140,7 @@
 			IServiceOffreEmploi serviceOffreEmploi = (IServiceOffreEmploi) ServicesLocator.getInstance().getRemoteInterface("ServiceOffreEmploi");  
 			
 			
-			offre = serviceOffreEmploi.newOffreEmploi(titre, descriptif, profil, niveau, secteurs, e);
+			offre = serviceOffreEmploi.newOffreEmploi(titre, descriptif, profil, niveau, secteurs, e.getIdEntreprise());
 			
 		%>
 		<div class="panel-body">
