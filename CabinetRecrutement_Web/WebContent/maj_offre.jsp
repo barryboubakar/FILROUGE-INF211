@@ -35,13 +35,13 @@
 <div class="row">
   <div class="col-lg-12">      
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-th"></i> Mettre à jour les informations de l'entreprise</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="fa fa-th"></i> Mettre à jour les informations de l'offre d'emploi</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
       
             <div class="col-lg-offset-2 col-lg-8               col-xs-12">
             
               <form role="form" action="template.jsp" method="get">
-                <input name="action" value="maj_candidature" type="hidden">
+                <input name="action" value="maj_offre" type="hidden">
                 <input name="traitement" value="go" type="hidden">
                 <input name="id_offre" value="<%= offre.getIdOffreEmploi()%>" type="hidden">
                 
@@ -191,7 +191,7 @@
 
 				if(traitement_secteur != null || !traitement_secteur[0].equals("")){
 					for(int i=0;i<traitement_secteur.length;i++){
-						secteurs.add(Integer.parseInt(traitement_secteur[i]));
+						 secteurs.add(Integer.parseInt(traitement_secteur[i]));
 					}	
 				} 
 				
