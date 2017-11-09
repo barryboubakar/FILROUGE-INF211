@@ -35,7 +35,8 @@
     <div class="panel panel-default">
       <div class="panel-heading"><h3><i class="glyphicon glyphicon-transfer"></i> Liste des offres d'emploi référencées</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
-     
+       <div class="dataTable_wrapper">
+      <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="dataTables-example_wrapper">
           <div class="row"><div class="col-sm-12">
       
 
@@ -44,7 +45,8 @@ if(offresEmploi.isEmpty()){%>
 	<p>Aucune offre d'emploi à afficher</p>
 <% } else { %>
 
-<table id="affichage" aria-describedby="dataTables-example_info" role="grid" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example">
+	<table aria-describedby="dataTables-example_info" role="grid" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example">
+	<thead>
 	<tr role="row"> 
 		<th tabindex="0" class="sorting" aria-controls="dataTables-example">Numéro</th>
 		<th tabindex="0" class="sorting">Titre</th>
@@ -56,6 +58,8 @@ if(offresEmploi.isEmpty()){%>
 		<th tabindex="0" class="sorting">Modification</th>
 		<th tabindex="0" class="sorting">Informations</th>
 	</tr>
+	</thead>
+	<tbody>
 	<%
 		Set<SecteurActivite> secteursActivite ;
 		List<Candidature> candidatures;
@@ -87,12 +91,13 @@ if(offresEmploi.isEmpty()){%>
 	<%
 		}
 	%>
-</table>
+	  </tbody>
+</table></div></div>
 <% } %>
 
-<a href="index.jsp">Retour au menu</a>
-
+		  </div> <!-- /.table-responsive -->
       </div> <!-- /.panel-body -->
     </div> <!-- /.panel -->
   </div> <!-- /.col-lg-12 -->
 </div> <!-- /.row -->
+</div>
