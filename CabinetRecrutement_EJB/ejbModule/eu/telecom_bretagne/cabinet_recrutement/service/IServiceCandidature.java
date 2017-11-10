@@ -22,6 +22,6 @@ public interface IServiceCandidature {
 	  
 	  public Candidature updateCandidature(int id,String nom, String prenom, Date date_naissance,String adresse_postale,String adresse_email,String cv,Integer idniveauQualification, ArrayList<Integer> secteursActivite);
 	  
-	  public void removeCandidature(Candidature candidature);	  
+	  public void removeCandidature(int idCandidature);	  
 	  
 }

@@ -172,8 +172,13 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 	}
 
 	@Override
-	public void removeOffreEmploi(OffreEmploi offreEmploi) {
+	public void removeOffreEmploi(int idOffreEmploi) {
+		OffreEmploi offreEmploi = offreDAO.findById(idOffreEmploi);
+
+		Set<SecteurActivite> secteursActiviteOffreEmploi = offreEmploi.getSecteurActivites();
+		offreEmploi.getSecteurActivites().removeAll(secteursActiviteOffreEmploi);
 		offreDAO.remove(offreEmploi);
+		
 	}
 
     

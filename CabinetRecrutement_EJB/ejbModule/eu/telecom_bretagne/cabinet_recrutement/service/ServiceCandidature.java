@@ -138,8 +138,8 @@ public class ServiceCandidature implements IServiceCandidature {
 				return candidatureDAO.update(candidature);
 	}
 	@Override
-	public void removeCandidature(Candidature candidature) {
-		candidatureDAO.remove(candidature);
-		
+	public void removeCandidature(int idCandidature) {
+		Candidature cand = candidatureDAO.findById(idCandidature);
+		candidatureDAO.remove(cand);
 	}
 }

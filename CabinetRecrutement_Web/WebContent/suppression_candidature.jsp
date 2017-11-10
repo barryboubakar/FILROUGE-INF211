@@ -51,7 +51,7 @@
 			Candidature c = serviceCandidature.getCandidature(idCandidature);
 			
 			//Suppression de la candidature
-			serviceCandidature.removeCandidature(c);	
+			serviceCandidature.removeCandidature(idCandidature);	
 	
 %>
 

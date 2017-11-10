@@ -35,7 +35,7 @@
 <div class="row">
   <div class="col-lg-12">      
     <div class="panel panel-default">
-      <div class="panel-heading"><h3><i class="fa fa-users"></i> Liste des candidatures référencées</h3></div> <!-- /.panel-heading -->
+      <div class="panel-heading"><h3><i class="fa fa-users"></i> Liste des offres d'emploi potentielles</h3></div> <!-- /.panel-heading -->
       <div class="panel-body">
         <div class="dataTable_wrapper">
           <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="dataTables-example_wrapper">

@@ -45,7 +45,7 @@
 			OffreEmploi o = serviceOffre.getOffreEmploi(idOffre) ;
 			
 		//Suppression de l'offre
-			serviceOffre.removeOffreEmploi(o) ;
+			serviceOffre.removeOffreEmploi(idOffre) ;
 		
 %>
 

@@ -25,5 +25,5 @@ public interface IServiceOffreEmploi {
 	  
 	  public OffreEmploi updateOffreEmploi(Integer idOffre, String titre, String descriptif_mission, String profil_recherche, Integer niveauQualification, ArrayList<Integer> secteursActivite);
 	  
-	  public void removeOffreEmploi(OffreEmploi offreEmploi);
+	  public void removeOffreEmploi(int idOffreEmploi);
 }
