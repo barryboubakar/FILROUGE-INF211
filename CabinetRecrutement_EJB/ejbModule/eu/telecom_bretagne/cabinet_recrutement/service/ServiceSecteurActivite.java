@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.EntrepriseDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.SecteurActiviteDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.SecteurActivite;
 
 /**
@@ -26,6 +27,7 @@ public class ServiceSecteurActivite implements IServiceSecteurActivite {
         // TODO Auto-generated constructor stub
     }
 
+   
 	@Override
 	public SecteurActivite getSecteurActivite(Integer id) {
 		return secteurDAO.findById(id);
@@ -37,12 +39,16 @@ public class ServiceSecteurActivite implements IServiceSecteurActivite {
 	}
 	
 	@Override
-	public SecteurActivite newSecteurActivite(SecteurActivite secteur) {
+	public SecteurActivite newSecteurActivite(String intitule) {
+		SecteurActivite secteur = new SecteurActivite();
+		secteur.setIntitule(intitule);
 		return secteurDAO.persist(secteur);
 	}
 	
 	@Override
-	public SecteurActivite updateSecteurActivite(SecteurActivite secteur) {
+	public SecteurActivite updateSecteurActivite(int id, String intitule) {
+		SecteurActivite secteur = secteurDAO.findById(id);
+		secteur.setIntitule(intitule);
 		return secteurDAO.update(secteur);
 	}
 

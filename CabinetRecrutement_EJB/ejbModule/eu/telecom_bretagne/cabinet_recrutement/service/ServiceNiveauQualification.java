@@ -37,12 +37,16 @@ public class ServiceNiveauQualification implements IServiceNiveauQualification {
 	}
 	
 	@Override
-	public NiveauQualification newNiveauQualification(NiveauQualification niveau) {
+	public NiveauQualification newNiveauQualification(String intitule) {
+		 NiveauQualification niveau = new NiveauQualification();
+		 niveau.setIntitule(intitule);
 		 return niveauDAO.persist(niveau);
 	}
 	
 	@Override
-	public NiveauQualification updateNiveauQualification(NiveauQualification niveau) {
+	public NiveauQualification updateNiveauQualification(int id, String intitule) {
+		NiveauQualification niveau = niveauDAO.findById(id);
+		niveau.setIntitule(intitule);
 		return niveauDAO.update(niveau);
 	}
 
