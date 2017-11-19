@@ -47,41 +47,52 @@
 <%
 	}
 	else {
-			if(identifiant.equals(""))
+			if(identifiant.startsWith("ENT_"))
 		  	{
-				response.sendRedirect("template.jsp?action=no_id_connexion");
-		  	}
-			else if(identifiant.startsWith("ENT_"))
-		  	{
-		  		IServiceEntreprise serviceEntreprise = (IServiceEntreprise) ServicesLocator.getInstance().getRemoteInterface("ServiceEntreprise");
-		  		int id = Integer.parseInt(identifiant.substring(4)); // On enlève le préfixe "ENT_";
-		  		Entreprise entreprise = serviceEntreprise.getEntreprise(id);
-		  		if(entreprise == null)
+		  		try {
+		  			IServiceEntreprise serviceEntreprise = (IServiceEntreprise) ServicesLocator.getInstance().getRemoteInterface("ServiceEntreprise");
+		  			int id = Integer.parseInt(identifiant.substring(4)); // On enlève le préfixe "ENT_";
+			  		Entreprise entreprise = serviceEntreprise.getEntreprise(id);
+			  		
+			  		if(entreprise == null)
 		  			{
 		  				response.sendRedirect("template.jsp?action=wrong_entreprise_id&identifiant="+ identifiant);
 		  			}
-		  		else
+		  			else
 		  			{
 		       	 		session.setAttribute("utilisateur",entreprise);
 		       	 		response.sendRedirect("index.jsp");
 		  			}
+		  		}catch (Exception e){
+		  			response.sendRedirect("template.jsp?action=wrong_entreprise_id&identifiant="+ identifiant);
+		  		}
+		  		
+		  		
 		  	}
 		  	else if(identifiant.startsWith("CAND_"))
 		  	{
-		  		IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
-		  		int id = Integer.parseInt(identifiant.substring(5)); // On enlève le préfixe "CAND_";
-		  		Candidature candidature = serviceCandidature.getCandidature(id);
-		      if(candidature == null)
-		      	{
-		    	  response.sendRedirect("template.jsp?action=wrong_candidature_id&identifiant="+ identifiant);
-		      	}
-		      else
-		      	{
-		        	session.setAttribute("utilisateur",candidature);
-		        	response.sendRedirect("index.jsp");
-		      	}
+			  	try {
+			  		IServiceCandidature serviceCandidature = (IServiceCandidature) ServicesLocator.getInstance().getRemoteInterface("ServiceCandidature");
+			  		int id = Integer.parseInt(identifiant.substring(5)); // On enlève le préfixe "CAND_";
+			  		Candidature candidature = serviceCandidature.getCandidature(id);
+				    if(candidature == null)
+				    {
+				    	response.sendRedirect("template.jsp?action=wrong_candidature_id&identifiant="+ identifiant);
+				    }
+				    else
+				    {
+				    	session.setAttribute("utilisateur",candidature);
+				      	response.sendRedirect("index.jsp");
+				    }
+			  	}catch (Exception e){
+		  			response.sendRedirect("template.jsp?action=wrong_entreprise_id&identifiant="+ identifiant);
+		  		}
 		  	}
-		  }
+		  	else
+		  	{
+				response.sendRedirect("template.jsp?action=no_id_connexion");
+		  	}
+	}
 %>     
             
 
