@@ -86,9 +86,9 @@ if(offresEmploi.isEmpty()){%>
 		}
 	%>
 	</tbody>
-</table></div></div>
+</table>
 <% } %>
-
+	</div></div>
         <!-- -------------------------- Affichage PIED DE PAGE ------------------------->
         </div> <!-- /.table-responsive -->
       </div> <!-- /.panel-body -->

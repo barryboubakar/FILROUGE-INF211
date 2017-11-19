@@ -41,9 +41,9 @@
       
 
 <%
-if(offresEmploi.isEmpty()){%>
+if(offresEmploi.isEmpty()){ %>
 	<p>Aucune offre d'emploi à afficher</p>
-<% } else { %>
+<% }  else { %>
 
 	<table aria-describedby="dataTables-example_info" role="grid" class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example">
 	<thead>
@@ -63,9 +63,10 @@ if(offresEmploi.isEmpty()){%>
 	<%
 		Set<SecteurActivite> secteursActivite ;
 		List<Candidature> candidatures;
+		
 		for (OffreEmploi offreEmploi : offresEmploi) {
 			secteursActivite = offreEmploi.getSecteurActivites();
-			candidatures = serviceCandidature.listeDesCandidatures();
+			candidatures = serviceCandidature.listeDesCandidaturesPourUneOffre(offreEmploi.getIdOffreEmploi());
 	%>
 	<tr>
 		<td><%=offreEmploi.getIdOffreEmploi()%></td>
@@ -80,21 +81,25 @@ if(offresEmploi.isEmpty()){%>
 		<td><%=Utils.date2String(offreEmploi.getDateDepot())%></td>
 		<td>
 			<% for(Candidature candidature : candidatures){ %>
-				<a href="template.jsp?action=infos_candidature&id=<%=candidature.getIdCandidature()%> "> <%=candidature.getPrenom()%> <%= candidature.getNom().toUpperCase() %></br>
+				<a href="template.jsp?action=infos_candidature&id=<%=candidature.getIdCandidature()%> "> <%=candidature.getPrenom()%> <%= candidature.getNom().toUpperCase() %></a><br>
 			<% } %>
 		</td>
 		<td align="center">
                         <a href="template.jsp?action=maj_offre&id_offre=<%=offreEmploi.getIdOffreEmploi()%>"><i class="fa fa-pencil-square-o fa-lg"></i></a>     
         </td>
-		<td align="center"><a href="template.jsp?action=infos_offre&amp;id=<%=offreEmploi.getIdOffreEmploi()%>"><i class="fa fa-eye fa-lg"></i></a></td>
+		<td align="center">
+			<a href="template.jsp?action=infos_offre&amp;id=<%=offreEmploi.getIdOffreEmploi()%>"><i class="fa fa-eye fa-lg"></i></a>
+		</td>
 	</tr>
 	<%
 		}
 	%>
 	  </tbody>
-</table></div></div>
+</table>	
 <% } %>
 
+			</div>
+			</div>
 		  </div> <!-- /.table-responsive -->
       </div> <!-- /.panel-body -->
     </div> <!-- /.panel -->

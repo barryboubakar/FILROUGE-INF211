@@ -1,8 +1,10 @@
 package eu.telecom_bretagne.cabinet_recrutement.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,6 +15,7 @@ import javax.ejb.Stateless;
 
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.CandidatureDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.NiveauQualificationDAO;
+import eu.telecom_bretagne.cabinet_recrutement.data.dao.OffreEmploiDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.dao.SecteurActiviteDAO;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.Candidature;
 import eu.telecom_bretagne.cabinet_recrutement.data.model.NiveauQualification;
@@ -31,6 +34,7 @@ public class ServiceCandidature implements IServiceCandidature {
 	  @EJB private CandidatureDAO         		candidatureDAO;
 	  @EJB private NiveauQualificationDAO	  	niveauDAO;
 	  @EJB private SecteurActiviteDAO 			secteurDAO;
+	  @EJB private OffreEmploiDAO				offreDAO;
 	  
     /**
      * Default constructor. 
@@ -49,13 +53,18 @@ public class ServiceCandidature implements IServiceCandidature {
 		return  candidatureDAO.findAll();
 	}
 	@Override
-	public List<Candidature> listeDesCandidaturesPourUneOffre(OffreEmploi offre) {
+	public List<Candidature> listeDesCandidaturesPourUneOffre(Integer idOffre) {
 		
-		List candidaturesRETURN = null;
-		for(Candidature can : candidatureDAO.findAll()){
-			//if(can);
+		OffreEmploi offre = offreDAO.findById(idOffre);
+		List<Candidature> candidatures = new LinkedList<Candidature>();
+		
+		Set <SecteurActivite>offreSect = offre.getSecteurActivites();
+		
+		for(SecteurActivite secteurActivite : offreSect){
+			candidatures.addAll(candidatureDAO.findBySecteurActiviteAndNiveauQualification(secteurActivite.getIdSecteurActivite(), offre.getNiveauQualification().getIdNiveauQualification()));
 		}
-		
+		Set<Candidature> candidaturesUniques = new HashSet<Candidature>(candidatures);
+		List <Candidature>candidaturesRETURN = new LinkedList(candidaturesUniques);
 		return candidaturesRETURN;
 	}
 	
@@ -142,4 +151,5 @@ public class ServiceCandidature implements IServiceCandidature {
 		Candidature cand = candidatureDAO.findById(idCandidature);
 		candidatureDAO.remove(cand);
 	}
+
 }

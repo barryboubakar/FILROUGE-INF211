@@ -44,7 +44,7 @@ public class Candidature implements Serializable {
 
 	//bi-directional many-to-many association to SecteurActivite
 	@ManyToMany(mappedBy="candidatures", fetch = EAGER)
-	private Set<SecteurActivite> secteurActivites;
+	private Set<SecteurActivite> secteursActivite;
 
 	//bi-directional many-to-one association to NiveauQualification
 	@ManyToOne
@@ -119,11 +119,11 @@ public class Candidature implements Serializable {
 	}
 
 	public Set<SecteurActivite> getSecteurActivites() {
-		return this.secteurActivites;
+		return this.secteursActivite;
 	}
 
 	public void setSecteurActivites(Set<SecteurActivite> secteurActivites) {
-		this.secteurActivites = secteurActivites;
+		this.secteursActivite = secteurActivites;
 	}
 
 	public NiveauQualification getNiveauQualification() {

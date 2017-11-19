@@ -78,7 +78,9 @@ public class ServiceOffreEmploi implements IServiceOffreEmploi {
 			idSecteurActivite = secteurActivite.getIdSecteurActivite();
 			offresEmploi.addAll( offreDAO.findBySecteurActiviteAndNiveauQualification(idSecteurActivite, idNiveauQualification) );
 		}
-		return offresEmploi;
+		Set<OffreEmploi> offresUniques = new HashSet<OffreEmploi>(offresEmploi);
+		List <OffreEmploi> offresRETURN = new LinkedList(offresUniques);
+		return offresRETURN;
 
 	}
 
